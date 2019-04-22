@@ -20,7 +20,8 @@ def create_cameraNode():
     obj = hou.node("/obj")
 
     # Create cam node in obj network
-    cam = obj.createNode("cam", "cam_1080")
+    # Also, move it so that it doesn't overlap other nodes
+    cam = obj.createNode("cam", "cam_1080").moveToGoodPosition()
 
     # Define resolution using dictionary format
     res = {'resx': 1920, 'resy': 1080}
@@ -46,7 +47,8 @@ def create_redshiftNode():
 
     #########################################
     # Create Redshift IPR in out network
-    redIPR = out.createNode("Redshift_IPR")
+    # Also, move it so that it doesn't overlap other nodes
+    redIPR = out.createNode("Redshift_IPR").moveToGoodPosition()
 
 #########################################################
 # Collect functions to generate all new nodes at startup
