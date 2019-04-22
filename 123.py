@@ -49,7 +49,7 @@ def create_redshiftNode():
 # Collect functions to generate all new nodes at startup
 # in new main() function
 def main():
-    create_cameraNode()
+    create_geoNode()
     create_cameraNode()
     create_redshiftNode()
 
