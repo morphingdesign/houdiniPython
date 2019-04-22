@@ -13,6 +13,9 @@ def create_geoNode():
 # Function to create camera node
 def create_cameraNode():
 
+    # Access obj network
+    obj = hou.node("/obj")
+
     # Create cam node in obj network
     cam = obj.createNode("cam", "cam_1080")
 
