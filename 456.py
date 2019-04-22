@@ -89,8 +89,13 @@ def main():
             rop_exists = True
             break
 
-    if not rop_exists:
-        create_redshiftNode()
+    # Error checking using (try/except) and message display
+    try:
+        if not rop_exists:
+            create_redshiftNode()
+    # If Redshift could not be created, deliver this message to UI
+    except:
+        hou.ui.displayMessage("An error occurred and Redshift ROP could not be created.")
 
 #########################################################
 # Call main function
