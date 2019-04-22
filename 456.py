@@ -53,14 +53,41 @@ def create_redshiftNode():
 # in new main() function
 def main():
 
-    # Check if a node in the obj network starts with "cam..."
-    # Wildcard (*) used to check for prefix "cam..."
-    if not hou.node('/obj').glob('cam*'):
+    # Collect all nodes in obj network and returns them
+    # in the form of a tuple (list)
+    nodes = hou.node('/obj').glob('*')
+    # Declare/initialize cam_exists as false
+    cam_exists = False
+
+    # Check each node in the obj network to see if the
+    # type matches that of a camera
+    for node in nodes:
+        if node.type().name() == 'cam':
+            # If there is a match, switch cam_exists and
+            # exit loop
+            cam_exists = True
+            break
+
+    if not cam_exists:
         create_cameraNode()
 
-    # Check if a node in the obj network starts with "Redshift..."
-    # Wildcard (*) used to check for prefix "Redshift..."
-    if not hou.node('/out').glob('Redshift*'):
+    #########################################
+    # Collect all nodes in out network and returns them
+    # in the form of a tuple (list)
+    rops = hou.node('/out').glob('*')
+    # Declare/initialize rop_exists as false
+    rop_exists = False
+
+    # Check each node in the out network to see if the
+    # type matches that of a Redshift ROP
+    for node in rops:
+        if node.type().name() == 'Redshift_ROP':
+            # If there is a match, switch rop_exists and
+            # exit loop
+            rop_exists = True
+            break
+
+    if not rop_exists:
         create_redshiftNode()
 
 #########################################################
