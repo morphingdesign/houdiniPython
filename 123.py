@@ -17,11 +17,19 @@ def create_geoNode():
 def create_cameraNode():
 
     # Access obj network
-    obj = hou.node("/obj")
+    camObj = hou.node("/obj")
 
     # Create cam node in obj network
+    cam = camObj.createNode("cam", "cam_1080")
+
     # Also, move it so that it doesn't overlap other nodes
-    cam = obj.createNode("cam", "cam_1080").moveToGoodPosition()
+    cam.moveToGoodPosition()
+
+    # The method is separated from previous var initialization
+    # otherwise it will not retain its type of cam.  Basically,
+    # the following will not work:
+    # cam = camObj.createNode("cam", "cam_1080").moveToGoodPosition()
+    # since the result is no longer a cam because of the end function
 
     # Define resolution using dictionary format
     res = {'resx': 1920, 'resy': 1080}
@@ -47,8 +55,10 @@ def create_redshiftNode():
 
     #########################################
     # Create Redshift IPR in out network
+    redIPR = out.createNode("Redshift_IPR")
+
     # Also, move it so that it doesn't overlap other nodes
-    redIPR = out.createNode("Redshift_IPR").moveToGoodPosition()
+    redIPR.moveToGoodPosition()
 
 #########################################################
 # Collect functions to generate all new nodes at startup
