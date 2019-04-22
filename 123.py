@@ -1,3 +1,6 @@
+# 123.py
+# File is run when Houdini starts up a new hou file
+
 #########################################################
 # Function to create blank geo node
 def create_geoNode():
