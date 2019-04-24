@@ -33,10 +33,6 @@ def create_lightNodes():
     # Create Redshift light node
     rslight = obj.createNode("rslight", node_name="rsLight")
 
-    # Move them so that they don't overlap other nodes
-    rslightdome.moveToGoodPosition()
-    rslight.moveToGoodPosition()
-
     # Turn off light nodes display & select flags
     rslightdome.setDisplayFlag(False)
     rslight.setDisplayFlag(False)
@@ -46,6 +42,10 @@ def create_lightNodes():
     # Set color for nodes to dark yellow
     rslightdome.setColor(hou.Color(1.0, 0.725, 0.0))
     rslight.setColor(hou.Color(1.0, 0.725, 0.0))
+
+    # Move them so that they don't overlap other nodes
+    rslightdome.moveToGoodPosition()
+    rslight.moveToGoodPosition()
 
 
 #########################################################
@@ -118,10 +118,16 @@ def create_matNode():
 # in new main() function
 def main():
     create_geoNode()
-    create_lightNodes()
     create_cameraNode()
     create_redshiftNode()
     create_matNode()
+
+    # lightNodes() function deactivated in 123.py file
+    # since the lightNodes() function in the 456.py file
+    # appears to duplicate them, so the 456.py file
+    # lightNodes() function takes precedence and this
+    # one's is deactivated:
+    # create_lightNodes()
 
 #########################################################
 # Call main function
