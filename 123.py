@@ -120,6 +120,7 @@ def main():
     create_geoNode()
     create_cameraNode()
     create_redshiftNode()
+    create_lightNodes()
     create_matNode()
 
     # lightNodes() function deactivated in 123.py file
