@@ -9,7 +9,7 @@ def create_geoNode():
     obj = hou.node("/obj")
 
     # Create geo node
-    geo = obj.createNode("geo", node_name="newGeo")
+    geo = obj.createNode("geo", node_name="geo_newGeo")
 
     # Turn off geo node select flag
     geo.setSelectableInViewport(False)
@@ -30,8 +30,19 @@ def create_lightNodes():
     rslightdome = obj.createNode("rslightdome", node_name="rsLightDome")
 
     #########################################
-    # Create Redshift light node
+    # Create Redshift area light node
     rslight = obj.createNode("rslight", node_name="rsLight")
+
+    #########################################
+    # Set parameters
+    # Disable area light
+    rslight.setParms({"light_enabled": "0"})
+    # Add path to default Houdini HDRI in light dome
+    rslightdome.setParms({"env_map": "$HFS/houdini/pic/hdri/HDRIHaven_kiara_5_noon_2k.rat"})
+    # Disable HDRI background in light dome
+    rslightdome.setParms({"background_enable": "0"})
+
+    #########################################
 
     # Turn off light nodes display & select flags
     rslightdome.setDisplayFlag(False)
@@ -99,10 +110,10 @@ def create_redshiftNode():
 # Function to create blank geo node
 def create_matNode():
 
-    # Access obj network
+    # Access shop network
     shop = hou.node("/shop")
 
-    # Create geo node
+    # Create Redshift material node
     rsmat = shop.createNode("RS_Material", node_name="rsMat")
 
     # Set color for node to dark red
@@ -114,6 +125,33 @@ def create_matNode():
 
 
 #########################################################
+# Function to create node organization
+# Includes network boxes and sticky notes
+def create_networkGeo():
+
+    # Access obj network
+    obj = hou.node("/obj")
+
+    # Create network box in obj network
+    geonet = obj.createNetworkBox()
+
+    # Set network box size & position
+    geonet.setSize([4,3])
+    geonet.setPosition([0,4])
+
+    # Set network box label & color
+    geonet.setComment("GEONET")
+    geonet.setColor(hou.Color(0.302, 0.525, 0.114))
+
+    # Collect all geo nodes in obj network
+    geo_node = obj.recursiveGlob("geo_*")
+    # The above returns tuple of single element
+    # Position single element to be within network box
+    geo_node[0].setPosition([0.5, 6])
+    # Add geo node to network box
+    geonet.addItem(geo_node[0])
+
+#########################################################
 # Collect functions to generate all new nodes at startup
 # in new main() function
 def main():
@@ -122,6 +160,9 @@ def main():
     create_redshiftNode()
     create_lightNodes()
     create_matNode()
+
+    #project management
+    create_networkGeo()
 
     # lightNodes() function deactivated in 123.py file
     # since the lightNodes() function in the 456.py file
