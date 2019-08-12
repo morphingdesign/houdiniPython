@@ -41,6 +41,46 @@ def create_geoNodeNet():
 
 
 #########################################################
+# Function to create blank render geo node
+def create_rndrNodeNet():
+
+    # Access obj network
+    obj = hou.node("/obj")
+
+    # Create render geo node
+    rndrgeo_new_node = obj.createNode("geo", node_name="rndr_newGeo")
+
+    # Turn off geo node select flag
+    rndrgeo_new_node.setSelectableInViewport(False)
+
+    # Set color for node to red
+    rndrgeo_new_node.setColor(hou.Color(0.8, 0.016, 0.016))
+
+    #########################################
+    # Set parameters
+    # Set material to reflect material
+    rndrgeo_new_node.setParms({"shop_materialpath": "/shop/rsMat_Reflect"})
+
+    #########################################
+
+    # Create network box in obj network
+    rndrgeonet = obj.createNetworkBox()
+
+    # Set network box size & position
+    rndrgeonet.setSize([4,3])
+    rndrgeonet.setPosition([5,4])
+
+    # Set network box label & color
+    rndrgeonet.setComment("RNDRNET")
+    rndrgeonet.setColor(hou.Color(0.8, 0.016, 0.016))
+
+    # Set node position
+    rndrgeo_new_node.setPosition([5.5, 6])
+    # Add geo node to network box
+    rndrgeonet.addItem(rndrgeo_new_node)
+
+
+#########################################################
 # Function to create Redshift light dome & single light nodes
 def create_lightNodeNet():
 
@@ -77,8 +117,8 @@ def create_lightNodeNet():
     rslight_node.setColor(hou.Color(1.0, 0.725, 0.0))
 
     # Move them so that they don't overlap other nodes
-    rslightdome_node.setPosition([5.5, 6])
-    rslight_node.setPosition([5.5, 5])
+    rslightdome_node.setPosition([10.5, 6])
+    rslight_node.setPosition([10.5, 5])
 
     #########################################
 
@@ -87,7 +127,7 @@ def create_lightNodeNet():
 
     # Set network box size & position
     lightnet.setSize([4,3])
-    lightnet.setPosition([5,4])
+    lightnet.setPosition([10,4])
 
     # Set network box label & color
     lightnet.setComment("LIGHTNET")
@@ -110,7 +150,7 @@ def create_cameraNodeNet():
 
     # Also, move it so that it doesn't overlap other nodes
     #cam.moveToGoodPosition()
-    cam_node.setPosition([10.5, 6])
+    cam_node.setPosition([15.5, 6])
 
     # Define resolution using dictionary format
     res = {'resx': 1920, 'resy': 1080}
@@ -131,7 +171,7 @@ def create_cameraNodeNet():
 
     # Set network box size & position
     camnet.setSize([4,3])
-    camnet.setPosition([10,4])
+    camnet.setPosition([15,4])
 
     # Set network box label & color
     camnet.setComment("CAMNET")
@@ -235,6 +275,7 @@ def create_matNodeNet():
 def main():
     # content creation
     create_geoNodeNet()
+    create_rndrNodeNet()
     create_cameraNodeNet()
     create_redshiftNodeNet()
     create_lightNodeNet()
