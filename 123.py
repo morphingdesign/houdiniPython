@@ -252,6 +252,8 @@ def create_cameraNodeNet():
 
     # Create cam node in obj network
     cam_node = obj.createNode("cam", "cam_1080")
+    # Create geo node to serve as linked origin to cam
+    cam_origin = obj.createNode("geo", node_name="cam_origin")
 
     #########################################
     # Set parameters
@@ -279,15 +281,18 @@ def create_cameraNodeNet():
     #########################################
 
     # Turn off camera node display & select flags
+    cam_origin.setDisplayFlag(False)
+    cam_origin.setSelectableInViewport(False)
     cam_node.setDisplayFlag(False)
     cam_node.setSelectableInViewport(False)
 
-    # Set color for node to dark blue
+    # Set color for nodes to dark blue
+    cam_origin.setColor(hou.Color(0.094, 0.369, 0.69))
     cam_node.setColor(hou.Color(0.094, 0.369, 0.69))
 
-    # Also, move it so that it doesn't overlap other nodes
-    # cam.moveToGoodPosition()
-    cam_node.setPosition([25.5, 6])
+    # Set positions
+    cam_origin.setPosition([25.5, 6])
+    cam_node.setPosition([25.5, 5])
 
     #########################################
 
@@ -304,7 +309,10 @@ def create_cameraNodeNet():
 
     # Add geo node to network box
     camnet.addItem(cam_node)
+    camnet.addItem(cam_origin)
 
+    # Link cam to origin
+    cam_node.setInput(0, cam_origin, 0)
 
 #########################################################
 # Function to create Redshift render ROP & IPR nodes
