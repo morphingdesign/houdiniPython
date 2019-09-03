@@ -2,6 +2,44 @@
 # File is run when Houdini starts up a new hou file
 
 #########################################################
+# Function to create blank ref geo node
+def create_refNodeNet():
+
+    # Access obj network
+    obj = hou.node("/obj")
+
+    # Create ref node
+    ref_new_node = obj.createNode("geo", node_name="ref_geo")
+
+    # Turn off ref node select flag
+    ref_new_node.setSelectableInViewport(False)
+
+    # Set color for node to dark brown
+    ref_new_node.setColor(hou.Color(0.573, 0.353, 0.0))
+
+    #########################################
+    # Set parameters
+
+
+    #########################################
+
+    # Create network box in obj network
+    refnet = obj.createNetworkBox()
+
+    # Set network box size & position
+    refnet.setSize([4,3])
+    refnet.setPosition([0,4])
+
+    # Set network box label & color
+    refnet.setComment("REFNET")
+    refnet.setColor(hou.Color(0.573, 0.353, 0.0))
+
+    ref_new_node.setPosition([0.5, 6])
+    # Add ref node to network box
+    refnet.addItem(ref_new_node)
+
+
+#########################################################
 # Function to create blank geo node
 def create_geoNodeNet():
 
@@ -20,7 +58,7 @@ def create_geoNodeNet():
     #########################################
     # Set parameters
     # Set material to reflect material
-    geo_new_node.setParms({"shop_materialpath": "/shop/rsMat_Reflect"})
+    #geo_new_node.setParms({"shop_materialpath": "/shop/rsMat_Reflect"})
 
     #########################################
 
@@ -29,15 +67,54 @@ def create_geoNodeNet():
 
     # Set network box size & position
     geonet.setSize([4,3])
-    geonet.setPosition([0,4])
+    geonet.setPosition([5,4])
 
     # Set network box label & color
     geonet.setComment("GEONET")
     geonet.setColor(hou.Color(0.302, 0.525, 0.114))
 
-    geo_new_node.setPosition([0.5, 6])
+    geo_new_node.setPosition([5.5, 6])
     # Add geo node to network box
     geonet.addItem(geo_new_node)
+
+
+#########################################################
+# Function to create blank dopnet node
+def create_dopNodeNet():
+    # Access obj network
+    obj = hou.node("/obj")
+
+    # Create dop node
+    dop_node = obj.createNode("dopnet", node_name="dop")
+
+    # Turn off dop node select flag
+    dop_node.setSelectableInViewport(False)
+
+    # Turn off dop node display flag
+    dop_node.setDisplayFlag(False)
+
+    # Set color for node to dark purple
+    dop_node.setColor(hou.Color(0.384, 0.184, 0.329))
+
+    #########################################
+    # Set parameters
+
+    #########################################
+
+    # Create network box in obj network
+    dopnet = obj.createNetworkBox()
+
+    # Set network box size & position
+    dopnet.setSize([4, 3])
+    dopnet.setPosition([10, 4])
+
+    # Set network box label & color
+    dopnet.setComment("DOPNET")
+    dopnet.setColor(hou.Color(0.384, 0.184, 0.329))
+
+    dop_node.setPosition([10.5, 6])
+    # Add dop node to network box
+    dopnet.addItem(dop_node)
 
 
 #########################################################
@@ -59,7 +136,7 @@ def create_rndrNodeNet():
     #########################################
     # Set parameters
     # Set material to reflect material
-    rndrgeo_new_node.setParms({"shop_materialpath": "/shop/rsMat_Reflect"})
+    rndrgeo_new_node.setParms({"shop_materialpath": "/mat/rsMat_Cd_Reflect"})
 
     #########################################
 
@@ -68,14 +145,14 @@ def create_rndrNodeNet():
 
     # Set network box size & position
     rndrgeonet.setSize([4,3])
-    rndrgeonet.setPosition([5,4])
+    rndrgeonet.setPosition([15,4])
 
     # Set network box label & color
     rndrgeonet.setComment("RNDRNET")
     rndrgeonet.setColor(hou.Color(0.8, 0.016, 0.016))
 
     # Set node position
-    rndrgeo_new_node.setPosition([5.5, 6])
+    rndrgeo_new_node.setPosition([15.5, 6])
     # Add geo node to network box
     rndrgeonet.addItem(rndrgeo_new_node)
 
@@ -117,8 +194,8 @@ def create_lightNodeNet():
     rslight_node.setColor(hou.Color(1.0, 0.725, 0.0))
 
     # Move them so that they don't overlap other nodes
-    rslightdome_node.setPosition([10.5, 6])
-    rslight_node.setPosition([10.5, 5])
+    rslightdome_node.setPosition([20.5, 6])
+    rslight_node.setPosition([20.5, 5])
 
     #########################################
 
@@ -127,7 +204,7 @@ def create_lightNodeNet():
 
     # Set network box size & position
     lightnet.setSize([4,3])
-    lightnet.setPosition([10,4])
+    lightnet.setPosition([20,4])
 
     # Set network box label & color
     lightnet.setComment("LIGHTNET")
@@ -150,7 +227,7 @@ def create_cameraNodeNet():
 
     # Also, move it so that it doesn't overlap other nodes
     #cam.moveToGoodPosition()
-    cam_node.setPosition([15.5, 6])
+    cam_node.setPosition([25.5, 6])
 
     # Define resolution using dictionary format
     res = {'resx': 1920, 'resy': 1080}
@@ -171,7 +248,7 @@ def create_cameraNodeNet():
 
     # Set network box size & position
     camnet.setSize([4,3])
-    camnet.setPosition([15,4])
+    camnet.setPosition([25,4])
 
     # Set network box label & color
     camnet.setComment("CAMNET")
@@ -217,8 +294,8 @@ def create_redshiftNodeNet():
 
 
 #########################################################
-# Function to create blank geo node
-def create_matNodeNet():
+# Function to create shop nodes
+def create_shopNodeNet():
 
     # Access shop network
     shop = hou.node("/shop")
@@ -270,15 +347,71 @@ def create_matNodeNet():
 
 
 #########################################################
+# Function to create mat nodes
+def create_matNodeNet():
+
+    # Access shop network
+    mat = hou.node("/mat")
+
+    # Create Redshift material nodes
+    rsMat_Cd_Matte = mat.createNode("redshift_vopnet", node_name="rsMat_Cd_Matte")
+    rsMat_Cd_Reflect = mat.createNode("redshift_vopnet", node_name="rsMat_Cd_Reflect")
+    rsMat_Glass = mat.createNode("redshift_vopnet", node_name="rsMat_Glass")
+
+    # Set color for node to dark red
+    rsMat_Cd_Matte.setColor(hou.Color(0.8, 0.016, 0.016))
+    rsMat_Cd_Reflect.setColor(hou.Color(0.8, 0.016, 0.016))
+    rsMat_Glass.setColor(hou.Color(0.8, 0.016, 0.016))
+
+    # Set reflect mat node to the preset of Plastic, which has a
+    # token of 2, hence the option identified
+    # Matte mat node set to 12, paper
+    #rsMatReflect.setParms({"preset": "2"})
+    #rsMatMatte.setParms({"preset": "12"})
+
+    # Position nodes
+    rsMat_Cd_Matte.setPosition([0, 2])
+    rsMat_Cd_Reflect.setPosition([0, 4])
+    rsMat_Glass.setPosition([0, 6])
+
+    #########################################
+    # Access inside rsMat_Cd
+    #rsMatCdVex = hou.node("shop/rsMat_Cd")
+
+    #rsMatCd_mat = rsMatCdVex.createNode("redshift::Material", node_name="Material_Comp")
+    #rsMatCd_cd = rsMatCdVex.createNode("redshift::ParticleAttributeLookup", node_name="Pt_Attribute")
+
+    #########################################
+    # Position nodes
+    #rsMatCd_mat.setPosition([-3, 0])
+    #rsMatCd_cd.setPosition([-6, 0])
+
+    #########################################
+    # Set parameters and network connections
+    # Set @Cd attribute for Pt_Attribute
+    #rsMatCd_cd.setParms({"attribute": "Cd"})
+    # Connect Pt_Attribute to Diffuse input in Material_Comp
+    #rsMatCd_mat.setInput(0, rsMatCd_cd, 0)
+
+    # Assign existing redshift material out node to variable rsMatOut
+    #rsMatOut = rsMatCdVex.node('redshift_material1')
+    # Connect Material_Comp to Surface in redshift_material
+    #rsMatOut.setInput(0, rsMatCd_mat, 0)
+
+
+#########################################################
 # Collect functions to generate all new nodes at startup
 # in new main() function
 def main():
     # content creation
+    create_refNodeNet()
     create_geoNodeNet()
+    create_dopNodeNet()
     create_rndrNodeNet()
     create_cameraNodeNet()
     create_redshiftNodeNet()
     create_lightNodeNet()
+    create_shopNodeNet()
     create_matNodeNet()
 
 
