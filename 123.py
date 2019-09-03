@@ -324,6 +324,14 @@ def create_redshiftNodeNet():
     redRop.setParms({"RS_gammaFileMode": "noGamma"})
     # Set render camera to main camera
     redRop.setParms({"PrimaryGIEngine": "RS_GIENGINE_BRUTE_FORCE"})
+    # Set render objects
+    redRop.setParms({"RS_objects_candidate": ""})
+    redRop.setParms({"RS_objects_force": "rndr_*"})
+    # Set IPR Renderer
+    redRop.setParms({"RS_iprProgressive": "0"})
+    redRop.setParms({"RS_iprUpdateMeshDeform": "1"})
+    redRop.setParms({"RS_iprUpdateStylesheets": "1"})
+    redRop.setParms({"RS_iprUpdateCOP2": "1"})
 
     #########################################
     # Create Redshift IPR in out network
