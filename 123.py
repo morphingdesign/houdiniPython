@@ -202,12 +202,24 @@ def create_lightNodeNet():
 
     #########################################
     # Set parameters
-    # Disable area light
-    rslight_node.setParms({"light_enabled": "0"})
     # Add path to default Houdini HDRI in light dome
-    rslightdome_node.setParms({"env_map": "$HFS/houdini/pic/hdri/HDRIHaven_kiara_5_noon_2k.rat"})
+    rslightdome_node.setParms({"env_map": "D:/OneDrive/01_Resources/HDRI/HdrStudioCharacterRembrandt001/HdrStudioCharacterRembrandt001/8K/HdrStudioCharacterRembrandt001_HDR_8K.exr"})
+    # Orient hdri for frontal view in cam
+    #rslightdome_node.setParms({"ry":"270"})
     # Disable HDRI background in light dome
     rslightdome_node.setParms({"background_enable": "0"})
+    # Disable area light
+    # rslight_node.setParms({"light_enabled": "0"})
+    # Position area light with cam position
+    rslight_node.setParms({"tz":"5.0"})
+    # Disable Affect Specular on area light
+    rslight_node.setParms({"RSL_affectSpecular":"0"})
+    # Change area light shape to Disc, token 1
+    rslight_node.setParms({"RSL_areaShape": "1"})
+    # Disable area light visibility in render view
+    rslight_node.setParms({"RSL_visible": "0"})
+    # Normalize area light intensity
+    rslight_node.setParms({"RSL_normalize": "1"})
 
     #########################################
 
