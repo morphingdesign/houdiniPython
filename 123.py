@@ -370,59 +370,6 @@ def create_redshiftNodeNet():
 
 
 #########################################################
-# Function to create shop nodes
-def create_shopNodeNet():
-
-    # Access shop network
-    shop = hou.node("/shop")
-
-    # Create Redshift material node
-    rsMatReflect = shop.createNode("RS_Material", node_name="rsMat_Reflect")
-    rsMatMatte = shop.createNode("RS_Material", node_name="rsMat_Matte")
-    rsMatCd = shop.createNode("redshift_vopnet", node_name="rsMat_Cd")
-
-    # Set color for node to dark red
-    rsMatReflect.setColor(hou.Color(0.8, 0.016, 0.016))
-    rsMatMatte.setColor(hou.Color(0.8, 0.016, 0.016))
-    rsMatCd.setColor(hou.Color(0.8, 0.016, 0.016))
-
-    # Set reflect mat node to the preset of Plastic, which has a
-    # token of 2, hence the option identified
-    # Matte mat node set to 12, paper
-    rsMatReflect.setParms({"preset": "2"})
-    rsMatMatte.setParms({"preset": "12"})
-
-    # Position nodes
-    rsMatReflect.setPosition([0, 2])
-    rsMatMatte.setPosition([0, 4])
-    rsMatCd.setPosition([0, 6])
-
-    #########################################
-    # Access inside rsMat_Cd
-    rsMatCdVex = hou.node("shop/rsMat_Cd")
-
-    rsMatCd_mat = rsMatCdVex.createNode("redshift::Material", node_name="Material_Comp")
-    rsMatCd_cd = rsMatCdVex.createNode("redshift::ParticleAttributeLookup", node_name="Pt_Attribute")
-
-    #########################################
-    # Position nodes
-    rsMatCd_mat.setPosition([-3, 0])
-    rsMatCd_cd.setPosition([-6, 0])
-
-    #########################################
-    # Set parameters and network connections
-    # Set @Cd attribute for Pt_Attribute
-    rsMatCd_cd.setParms({"attribute": "Cd"})
-    # Connect Pt_Attribute to Diffuse input in Material_Comp
-    rsMatCd_mat.setInput(0, rsMatCd_cd, 0)
-
-    # Assign existing redshift material out node to variable rsMatOut
-    rsMatOut = rsMatCdVex.node('redshift_material1')
-    # Connect Material_Comp to Surface in redshift_material
-    rsMatOut.setInput(0, rsMatCd_mat, 0)
-
-
-#########################################################
 # Function to create mat nodes
 def create_matNodeNet():
 
@@ -461,6 +408,9 @@ def create_matNodeNet():
 
     # Matte mat node set to 12, paper
     cdmatte_mat.setParms({"preset":"12"})
+    # Matte mat node set Reflection: Roughness to 1.0
+    # By default, this is set to 0.0 by Houdini
+    cdmatte_mat.setParms({"refl_roughness": "1.0"})
 
     # Assign existing redshift material out node to variable
     cdmatte_out = rsMat_Cd_Matte.node('redshift_material1')
@@ -519,7 +469,6 @@ def main():
     create_cameraNodeNet()
     create_redshiftNodeNet()
     create_lightNodeNet()
-    create_shopNodeNet()
     create_matNodeNet()
 
 
