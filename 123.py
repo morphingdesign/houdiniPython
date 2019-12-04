@@ -38,7 +38,6 @@ def create_refNodeNet():
     # Add ref node to network box
     refnet.addItem(ref_new_node)
 
-
 #########################################################
 # Function to create blank geo node
 def create_geoNodeNet():
@@ -84,7 +83,6 @@ def create_geoNodeNet():
     geonet_EOF.setColor(hou.Color(0.8, 0.016, 0.016))
     geonet_EOF.setDisplayFlag(True)
 
-
 #########################################################
 # Function to create blank dopnet node
 def create_dopNodeNet():
@@ -123,7 +121,6 @@ def create_dopNodeNet():
     # Add dop node to network box
     dopnet.addItem(dop_node)
 
-
 #########################################################
 # Function to create blank render geo node
 def create_rndrNodeNet():
@@ -143,7 +140,8 @@ def create_rndrNodeNet():
     #########################################
     # Set parameters
     # Set material to reflect material
-    rndrgeo_new_node.setParms({"shop_materialpath": "/mat/rsMat_Cd_Reflect"})
+    # DISABLE RS
+    # #rndrgeo_new_node.setParms({"shop_materialpath": "/mat/rsMat_Cd_Reflect"})
 
     #########################################
 
@@ -184,7 +182,7 @@ def create_rndrNodeNet():
     rndrnet_eof.setInput(0, rndrnet_om, 0)
     rndrgeo_new_node.layoutChildren()
 
-
+'''
 #########################################################
 # Function to create Redshift light dome & single light nodes
 def create_lightNodeNet():
@@ -253,7 +251,7 @@ def create_lightNodeNet():
     # Add geo node to network box
     lightnet.addItem(rslightdome_node)
     lightnet.addItem(rslight_node)
-
+'''
 
 #########################################################
 # Function to create camera node
@@ -278,16 +276,17 @@ def create_cameraNodeNet():
     cam_node.setParms({"ty": "0.5"})
     cam_node.setParms({"tz": "5.0"})
 
+    # DISABLE RS
     # Enable DOF & link cam focus distance to RS cam
-    cam_node.setParms({"RS_campro_dofEnable": "1"})
+    #cam_node.setParms({"RS_campro_dofEnable": "1"})
     # Disable Houdini cam DOF link
-    cam_node.setParms({"RS_campro_dofUseHoudiniCamera": "0"})
+    #cam_node.setParms({"RS_campro_dofUseHoudiniCamera": "0"})
     # Adjust DOF power to be lower
-    cam_node.setParms({"RS_campro_dofPower": "0.001"})
+    #cam_node.setParms({"RS_campro_dofPower": "0.001"})
     # Set Houdini cam focus distance to variable
-    focus = hou.parm('/obj/cam_1080/focus')
+    #focus = hou.parm('/obj/cam_1080/focus')
     # Use focus distance variable as channel reference in RS cam
-    cam_node.setParms({"RS_campro_dofDistance": focus})
+    #cam_node.setParms({"RS_campro_dofDistance": focus})
 
 
     #########################################
@@ -326,6 +325,7 @@ def create_cameraNodeNet():
     # Link cam to origin
     cam_node.setInput(0, cam_origin, 0)
 
+'''
 #########################################################
 # Function to create Redshift render ROP & IPR nodes
 def create_redshiftNodeNet():
@@ -367,7 +367,6 @@ def create_redshiftNodeNet():
     # Position nodes
     redIPR.setPosition([0, 2])
     redRop.setPosition([0, 4])
-
 
 #########################################################
 # Function to create mat nodes
@@ -455,7 +454,7 @@ def create_matNodeNet():
     glass_out = rsMat_Glass.node('redshift_material1')
     # Connect Material_Comp to Surface in redshift_material
     glass_out.setInput(0, glass_mat, 0)
-
+'''
 
 #########################################################
 # Collect functions to generate all new nodes at startup
@@ -467,10 +466,9 @@ def main():
     create_dopNodeNet()
     create_rndrNodeNet()
     create_cameraNodeNet()
-    create_redshiftNodeNet()
-    create_lightNodeNet()
-    create_matNodeNet()
-
+    # create_redshiftNodeNet()
+    # create_lightNodeNet()
+    # create_matNodeNet()
 
 #########################################################
 # Call main function
