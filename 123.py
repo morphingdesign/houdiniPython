@@ -182,7 +182,7 @@ def create_rndrNodeNet():
     rndrnet_eof.setInput(0, rndrnet_om, 0)
     rndrgeo_new_node.layoutChildren()
 
-'''
+
 #########################################################
 # Function to create Redshift light dome & single light nodes
 def create_lightNodeNet():
@@ -251,7 +251,7 @@ def create_lightNodeNet():
     # Add geo node to network box
     lightnet.addItem(rslightdome_node)
     lightnet.addItem(rslight_node)
-'''
+
 
 #########################################################
 # Function to create camera node
@@ -325,7 +325,7 @@ def create_cameraNodeNet():
     # Link cam to origin
     cam_node.setInput(0, cam_origin, 0)
 
-'''
+
 #########################################################
 # Function to create Redshift render ROP & IPR nodes
 def create_redshiftNodeNet():
@@ -454,7 +454,7 @@ def create_matNodeNet():
     glass_out = rsMat_Glass.node('redshift_material1')
     # Connect Material_Comp to Surface in redshift_material
     glass_out.setInput(0, glass_mat, 0)
-'''
+
 
 #########################################################
 # Collect functions to generate all new nodes at startup
@@ -466,9 +466,9 @@ def main():
     create_dopNodeNet()
     create_rndrNodeNet()
     create_cameraNodeNet()
-    # create_redshiftNodeNet()
-    # create_lightNodeNet()
-    # create_matNodeNet()
+    create_redshiftNodeNet()
+    create_lightNodeNet()
+    create_matNodeNet()
 
 #########################################################
 # Call main function
