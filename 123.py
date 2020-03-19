@@ -464,11 +464,11 @@ def main():
     create_refNodeNet()
     create_geoNodeNet()
     create_dopNodeNet()
-    create_rndrNodeNet()
+    # create_rndrNodeNet()
     create_cameraNodeNet()
-    create_redshiftNodeNet()
-    create_lightNodeNet()
-    create_matNodeNet()
+    # create_redshiftNodeNet()
+    # create_lightNodeNet()
+    # create_matNodeNet()
 
 #########################################################
 # Call main function
