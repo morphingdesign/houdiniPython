@@ -57,7 +57,7 @@ def create_geoNodeNet():
     #########################################
     # Set parameters
     # Set material to reflect material
-    #geo_new_node.setParms({"shop_materialpath": "/shop/rsMat_Reflect"})
+    geo_new_node.setParms({"shop_materialpath": "/shop/rsMat_Reflect"})
 
     #########################################
 
@@ -278,15 +278,15 @@ def create_cameraNodeNet():
 
     # DISABLE RS
     # Enable DOF & link cam focus distance to RS cam
-    #cam_node.setParms({"RS_campro_dofEnable": "1"})
+    cam_node.setParms({"RS_campro_dofEnable": "1"})
     # Disable Houdini cam DOF link
-    #cam_node.setParms({"RS_campro_dofUseHoudiniCamera": "0"})
+    cam_node.setParms({"RS_campro_dofUseHoudiniCamera": "0"})
     # Adjust DOF power to be lower
-    #cam_node.setParms({"RS_campro_dofPower": "0.001"})
+    cam_node.setParms({"RS_campro_dofPower": "0.001"})
     # Set Houdini cam focus distance to variable
-    #focus = hou.parm('/obj/cam_1080/focus')
+    focus = hou.parm('/obj/cam_1080/focus')
     # Use focus distance variable as channel reference in RS cam
-    #cam_node.setParms({"RS_campro_dofDistance": focus})
+    cam_node.setParms({"RS_campro_dofDistance": focus})
 
 
     #########################################
@@ -464,11 +464,11 @@ def main():
     create_refNodeNet()
     create_geoNodeNet()
     create_dopNodeNet()
-    # create_rndrNodeNet()
+    create_rndrNodeNet()
     create_cameraNodeNet()
-    # create_redshiftNodeNet()
-    # create_lightNodeNet()
-    # create_matNodeNet()
+    create_redshiftNodeNet()
+    create_lightNodeNet()
+    create_matNodeNet()
 
 #########################################################
 # Call main function
