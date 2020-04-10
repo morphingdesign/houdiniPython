@@ -107,6 +107,13 @@ def create_geoBkgdGrid():
 
     #########################################
 
+    # Create null EOF node within, color & enable display
+    geonet_EOF = grid_new_node.createNode("null", node_name="OUT")
+    geonet_EOF.setColor(hou.Color(0.8, 0.016, 0.016))
+    geonet_EOF.setDisplayFlag(True)
+
+    #########################################
+
     # Create grid node within, position and orient
     grid_sop = grid_new_node.createNode("grid", node_name="grid")
     # Orient grid to vertical plane, perpendicular to camera position
@@ -114,13 +121,9 @@ def create_geoBkgdGrid():
     # Rotate along y-axis to face camera
     grid_sop.setParms({"ry": "180"})
 
-    #########################################
-
-    # Create null EOF node within, color & enable display
-    geonet_EOF = grid_new_node.createNode("null", node_name="OUT")
-    geonet_EOF.setColor(hou.Color(0.8, 0.016, 0.016))
-    geonet_EOF.setPosition([0, -1])
-    geonet_EOF.setDisplayFlag(True)
+    # Link Grid to EOF, & organize nodes geo
+    geonet_EOF.setInput(0, grid_sop, 0)
+    grid_new_node.layoutChildren()
 
     #########################################
 
@@ -155,7 +158,7 @@ def create_geoBkgdGrid():
     # Set OM transform to 'Into This Object' token
     rndrgrid_om.setParms({"xformtype": "local"})
 
-    # Link OM to EOF, & organize nodes in RNDRNET
+    # Link OM to EOF, & organize nodes in geo
     rndrgrid_eof.setInput(0, rndrgrid_om, 0)
     rndrgeo_grid_node.layoutChildren()
 
