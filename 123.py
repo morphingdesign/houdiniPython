@@ -284,12 +284,12 @@ def create_lightNodeNet():
     rslightdome_node = obj.createNode("rslightdome", node_name="rsLightDome")
 
     #########################################
-    # Create Redshift area light node to serve as Key Light
-    rslight_node = obj.createNode("rslight", node_name="rsLightKey")
+    # Create Redshift point light node to serve as Back Light
+    rslightback_node = obj.createNode("rslight", node_name="rsLightBack")
 
     #########################################
-    # Create Redshift point light node to serve as Back Light
-    rslight_node = obj.createNode("rslight", node_name="rsLightBack")
+    # Create Redshift area light node to serve as Key Light
+    rslightkey_node = obj.createNode("rslight", node_name="rsLightKey")
 
     #########################################
     # Set dome light parameters
@@ -301,37 +301,50 @@ def create_lightNodeNet():
     rslightdome_node.setParms({"background_enable": "0"})
 
     #########################################
+    # Set point light parameters
+    # Position light with cam position
+    rslightback_node.setParms({"tz": "-2.5"})
+    # Change from default of area to point type
+    rslightback_node.setParms({"light_type": "point"})
+    # Decrease intensity multiplier from default of 100
+    rslightback_node.setParms({"RSL_intensityMultiplier": "10"})
+
+    #########################################
     # Set area light parameters
     # Disable area light
     # rslight_node.setParms({"light_enabled": "0"})
     # Position area light with cam position
-    rslight_node.setParms({"tz":"5.0"})
+    rslightkey_node.setParms({"tz":"5.0"})
     # Decrease intensity multiplier from default of 100
-    rslight_node.setParms({"RSL_intensityMultiplier": "1"})
+    rslightkey_node.setParms({"RSL_intensityMultiplier": "1"})
     # Disable Affect Specular on area light
-    #rslight_node.setParms({"RSL_affectSpecular":"0"})
+    #rslightkey_node.setParms({"RSL_affectSpecular":"0"})
     # Change area light shape to Disc, token 1
-    rslight_node.setParms({"RSL_areaShape": "1"})
+    rslightkey_node.setParms({"RSL_areaShape": "1"})
     # Disable area light visibility in render view
-    rslight_node.setParms({"RSL_visible": "0"})
+    rslightkey_node.setParms({"RSL_visible": "0"})
     # Normalize area light intensity
-    rslight_node.setParms({"RSL_normalize": "1"})
+    rslightkey_node.setParms({"RSL_normalize": "1"})
 
     #########################################
 
     # Turn off light nodes display & select flags
     rslightdome_node.setDisplayFlag(False)
-    rslight_node.setDisplayFlag(False)
+    rslightkey_node.setDisplayFlag(False)
+    rslightback_node.setDisplayFlag(False)
     rslightdome_node.setSelectableInViewport(False)
-    rslight_node.setSelectableInViewport(False)
+    rslightkey_node.setSelectableInViewport(False)
+    rslightback_node.setSelectableInViewport(False)
 
     # Set color for nodes to dark yellow
     rslightdome_node.setColor(hou.Color(1.0, 0.725, 0.0))
-    rslight_node.setColor(hou.Color(1.0, 0.725, 0.0))
+    rslightkey_node.setColor(hou.Color(1.0, 0.725, 0.0))
+    rslightback_node.setColor(hou.Color(1.0, 0.725, 0.0))
 
     # Move them so that they don't overlap other nodes
     rslightdome_node.setPosition([20.5, 6])
-    rslight_node.setPosition([20.5, 5])
+    rslightkey_node.setPosition([20.5, 5])
+    rslightback_node.setPosition([20.5, 4])
 
     #########################################
 
@@ -348,7 +361,8 @@ def create_lightNodeNet():
 
     # Add geo node to network box
     lightnet.addItem(rslightdome_node)
-    lightnet.addItem(rslight_node)
+    lightnet.addItem(rslightkey_node)
+    lightnet.addItem(rslightback_node)
 
 
 #########################################################
