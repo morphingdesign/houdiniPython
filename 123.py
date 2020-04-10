@@ -100,6 +100,8 @@ def create_geoBkgdGrid():
     grid_new_node.setPosition([5.5, 5])
     # Turn off geo node select flag
     grid_new_node.setDisplayFlag(False)
+    # Transform grid geo node away from scene center
+    grid_new_node.setParms({"tz": "-5"})
 
     # Acquire existing Geonet Netbox and append new geo to it
     geonet = hou.item('/obj/__netbox2')
@@ -284,6 +286,10 @@ def create_lightNodeNet():
     #########################################
     # Create Redshift area light node to serve as Key Light
     rslight_node = obj.createNode("rslight", node_name="rsLightKey")
+
+    #########################################
+    # Create Redshift point light node to serve as Back Light
+    rslight_node = obj.createNode("rslight", node_name="rsLightBack")
 
     #########################################
     # Set dome light parameters
