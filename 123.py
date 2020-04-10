@@ -278,27 +278,32 @@ def create_lightNodeNet():
     obj = hou.node("/obj")
 
     #########################################
-    # Create Redshift light dome node
+    # Create Redshift light dome node to serve as Fill Light
     rslightdome_node = obj.createNode("rslightdome", node_name="rsLightDome")
 
     #########################################
-    # Create Redshift area light node
-    rslight_node = obj.createNode("rslight", node_name="rsLight")
+    # Create Redshift area light node to serve as Key Light
+    rslight_node = obj.createNode("rslight", node_name="rsLightKey")
 
     #########################################
-    # Set parameters
+    # Set dome light parameters
     # Add path to default Houdini HDRI in light dome
     rslightdome_node.setParms({"env_map": "D:/OneDrive/01_Resources/HDRI/HdrStudioCharacterRembrandt001/HdrStudioCharacterRembrandt001/8K/HdrStudioCharacterRembrandt001_HDR_8K.exr"})
     # Orient hdri for frontal view in cam
-    #rslightdome_node.setParms({"ry":"270"})
+    rslightdome_node.setParms({"ry":"270"})
     # Disable HDRI background in light dome
     rslightdome_node.setParms({"background_enable": "0"})
+
+    #########################################
+    # Set area light parameters
     # Disable area light
     # rslight_node.setParms({"light_enabled": "0"})
     # Position area light with cam position
     rslight_node.setParms({"tz":"5.0"})
+    # Decrease intensity multiplier from default of 100
+    rslight_node.setParms({"RSL_intensityMultiplier": "1"})
     # Disable Affect Specular on area light
-    rslight_node.setParms({"RSL_affectSpecular":"0"})
+    #rslight_node.setParms({"RSL_affectSpecular":"0"})
     # Change area light shape to Disc, token 1
     rslight_node.setParms({"RSL_areaShape": "1"})
     # Disable area light visibility in render view
