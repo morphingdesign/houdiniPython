@@ -112,7 +112,13 @@ def create_geoBkgdGrid():
     geonet_EOF.setColor(hou.Color(0.8, 0.016, 0.016))
     geonet_EOF.setDisplayFlag(True)
 
-    #########################################
+    # Create color node within, set to blue
+    grid_color_sop = grid_new_node.createNode("color", node_name="Set_cd")
+    # Set point color to blue; note that parameter is not accessible via tuple,
+    # but rather individual float fields as follows:
+    grid_color_sop.setParms({"colorr": "0.0"})
+    grid_color_sop.setParms({"colorg": "0.25"})
+    grid_color_sop.setParms({"colorb": "0.5"})
 
     # Create grid node within, position and orient
     grid_sop = grid_new_node.createNode("grid", node_name="grid")
@@ -121,8 +127,9 @@ def create_geoBkgdGrid():
     # Rotate along y-axis to face camera
     grid_sop.setParms({"ry": "180"})
 
-    # Link Grid to EOF, & organize nodes geo
-    geonet_EOF.setInput(0, grid_sop, 0)
+    # Link Grid to Color to EOF, & organize nodes in geo
+    grid_color_sop.setInput(0, grid_sop, 0)
+    geonet_EOF.setInput(0, grid_color_sop, 0)
     grid_new_node.layoutChildren()
 
     #########################################
