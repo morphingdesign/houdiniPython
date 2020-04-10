@@ -84,6 +84,46 @@ def create_geoNodeNet():
     geonet_EOF.setDisplayFlag(True)
 
 #########################################################
+# Function to create background grid geo node
+def create_geoBkgdGrid():
+
+    # Access obj network
+    obj = hou.node("/obj")
+
+    # Create geo node for grid background
+    grid_new_node = obj.createNode("geo", node_name="geo_gridBkgd")
+    # Turn off geo node select flag
+    grid_new_node.setSelectableInViewport(False)
+    # Set color for node to dark green
+    grid_new_node.setColor(hou.Color(0.302, 0.525, 0.114))
+    # Position in obj
+    grid_new_node.setPosition([5.5, 5])
+    # Turn off geo node select flag
+    grid_new_node.setDisplayFlag(False)
+
+    # Acquire existing Geonet Netbox and append new geo to it
+    geonet = hou.item('/obj/__netbox2')
+    geonet.addItem(grid_new_node)
+
+    #########################################
+
+    # Create grid node within, position and orient
+    grid_sop = grid_new_node.createNode("grid", node_name="grid")
+    # Orient grid to vertical plane, perpendicular to camera position
+    grid_sop.setParms({"orient": "xy"})
+    # Rotate along y-axis to face camera
+    grid_sop.setParms({"ry": "180"})
+
+    #########################################
+
+    # Create null EOF node within, color & enable display
+    geonet_EOF = grid_new_node.createNode("null", node_name="OUT")
+    geonet_EOF.setColor(hou.Color(0.8, 0.016, 0.016))
+    geonet_EOF.setPosition([0, -1])
+    geonet_EOF.setDisplayFlag(True)
+
+
+#########################################################
 # Function to create blank dopnet node
 def create_dopNodeNet():
     # Access obj network
@@ -463,6 +503,7 @@ def main():
     # content creation
     create_refNodeNet()
     create_geoNodeNet()
+    create_geoBkgdGrid()
     create_dopNodeNet()
     create_rndrNodeNet()
     create_cameraNodeNet()
