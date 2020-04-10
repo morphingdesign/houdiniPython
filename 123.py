@@ -122,6 +122,43 @@ def create_geoBkgdGrid():
     geonet_EOF.setPosition([0, -1])
     geonet_EOF.setDisplayFlag(True)
 
+    #########################################
+
+    # Create render geo node
+    rndrgeo_grid_node = obj.createNode("geo", node_name="rndr_gridBkgd")
+    # Turn off geo node select flag
+    rndrgeo_grid_node.setSelectableInViewport(False)
+    # Set color for node to red
+    rndrgeo_grid_node.setColor(hou.Color(0.8, 0.016, 0.016))
+    # Position node in obj
+    rndrgeo_grid_node.setPosition([15.5, 5])
+    # Set material to matte material
+    rndrgeo_grid_node.setParms({"shop_materialpath": "/shop/rsMat_Matte"})
+
+    # Add geo node to existing render network box
+    rndrgeonet = hou.item('/obj/__netbox4')
+    rndrgeonet.addItem(rndrgeo_grid_node)
+
+    #########################################
+
+    # Create null EOF node within, color & enable display
+    rndrgrid_eof = rndrgeo_grid_node.createNode("null", node_name="OUT")
+    rndrgrid_eof.setColor(hou.Color(0.8, 0.016, 0.016))
+    rndrgrid_eof.setDisplayFlag(True)
+
+    # Create object merge node within & color
+    rndrgrid_om = rndrgeo_grid_node.createNode("object_merge", node_name="get_grid_geo")
+    rndrgrid_om.setColor(hou.Color(0.302, 0.525, 0.114))
+    # Link OM obj with EOF in render grid geo obj
+    rndrgrid_om.setParms({"objpath1": "/obj/geo_gridBkgd/OUT"})
+
+    # Set OM transform to 'Into This Object' token
+    rndrgrid_om.setParms({"xformtype": "local"})
+
+    # Link OM to EOF, & organize nodes in RNDRNET
+    rndrgrid_eof.setInput(0, rndrgrid_om, 0)
+    rndrgeo_grid_node.layoutChildren()
+
 
 #########################################################
 # Function to create blank dopnet node
@@ -503,13 +540,14 @@ def main():
     # content creation
     create_refNodeNet()
     create_geoNodeNet()
-    create_geoBkgdGrid()
     create_dopNodeNet()
     create_rndrNodeNet()
     create_cameraNodeNet()
     create_redshiftNodeNet()
     create_lightNodeNet()
     create_matNodeNet()
+    # accessory content creation
+    create_geoBkgdGrid()
 
 #########################################################
 # Call main function
