@@ -1,5 +1,6 @@
 # 123.py
 # File is run when Houdini starts up a new hou file
+# Requires Redshift
 
 #########################################################
 # Function to create blank ref geo node
