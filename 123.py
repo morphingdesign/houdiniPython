@@ -146,7 +146,7 @@ def create_geoBkgdGrid():
     # Position node in obj
     rndrgeo_grid_node.setPosition([15.5, 5])
     # Set material to matte material
-    rndrgeo_grid_node.setParms({"shop_materialpath": "/shop/rsMat_Matte"})
+    rndrgeo_grid_node.setParms({"shop_materialpath": "/mat/rsMat_Cd_Matte"})
 
     # Add geo node to existing render network box
     rndrgeonet = hou.item('/obj/__netbox4')
