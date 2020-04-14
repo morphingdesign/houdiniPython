@@ -58,7 +58,7 @@ def create_geoNodeNet():
     #########################################
     # Set parameters
     # Set material to reflect material
-    geo_new_node.setParms({"shop_materialpath": "/shop/rsMat_Reflect"})
+    # geo_new_node.setParms({"shop_materialpath": "/shop/rsMat_Reflect"})
 
     #########################################
 
