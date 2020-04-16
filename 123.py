@@ -564,7 +564,7 @@ def create_matNodeNet():
 
     #########################################
     # Access inside rsMat_Cd_Glass to create node
-    glass_mat = hou.node('/mat/rsMat_Cd_Glass/Material1')
+    glass_mat = hou.node('/mat/rsMat_Glass/Material1')
 
     # Position node
     glass_mat.setPosition([-3, 0])
