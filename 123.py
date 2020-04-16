@@ -455,8 +455,12 @@ def create_redshiftNodeNet():
     redRop.setParms({"RS_renderCamera": "/obj/cam_1080"})
     # Set to No Gamma
     redRop.setParms({"RS_gammaFileMode": "noGamma"})
+    # Set samples
+    redRop.setParms({"UnifiedMinSamples": "16"})
+    redRop.setParms({"UnifiedMaxSamples": "128"})
     # Set primary engine to Brute Force
     redRop.setParms({"PrimaryGIEngine": "RS_GIENGINE_BRUTE_FORCE"})
+    redRop.setParms({"BruteForceGINumRays": "128"})
     # Set render objects
     redRop.setParms({"RS_objects_candidate": ""})
     redRop.setParms({"RS_objects_force": "rndr_*"})
