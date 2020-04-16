@@ -505,7 +505,10 @@ def create_matNodeNet():
 
     #########################################
     # Access inside rsMat_Cd_Matte to create nodes
-    cdmatte_mat = rsMat_Cd_Matte.createNode("redshift::Material", node_name="Material_Comp")
+    # RS mat nodes originally did not have a material node within, hence the following:
+    # cdmatte_mat = rsMat_Cd_Matte.createNode("redshift::Material", node_name="Material_Comp")
+    # ..., but latest versions have material node within, so the following attributes a variable:
+    cdmatte_mat = hou.node('/mat/rsMat_Cd_Matte/Material1')
     cdmatte_cd = rsMat_Cd_Matte.createNode("redshift::ParticleAttributeLookup", node_name="Pt_Attribute")
 
     # Position nodes
@@ -531,7 +534,7 @@ def create_matNodeNet():
 
     #########################################
     # Access inside rsMat_Cd_Reflect to create nodes
-    cdreflect_mat = rsMat_Cd_Reflect.createNode("redshift::Material", node_name="Material_Comp")
+    cdreflect_mat = hou.node('/mat/rsMat_Cd_Reflect/Material1')
     cdreflect_cd = rsMat_Cd_Reflect.createNode("redshift::ParticleAttributeLookup", node_name="Pt_Attribute")
 
     # Position nodes
@@ -554,7 +557,7 @@ def create_matNodeNet():
 
     #########################################
     # Access inside rsMat_Cd_Glass to create node
-    glass_mat = rsMat_Glass.createNode("redshift::Material", node_name="Material_Comp")
+    glass_mat = hou.node('/mat/rsMat_Cd_Glass/Material1')
 
     # Position node
     glass_mat.setPosition([-3, 0])
