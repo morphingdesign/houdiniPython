@@ -492,16 +492,19 @@ def create_matNodeNet():
     rsMat_Cd_Matte = mat.createNode("redshift_vopnet", node_name="rsMat_Cd_Matte")
     rsMat_Cd_Reflect = mat.createNode("redshift_vopnet", node_name="rsMat_Cd_Reflect")
     rsMat_Glass = mat.createNode("redshift_vopnet", node_name="rsMat_Glass")
+    rsMat_Vol = mat.createNode("redshift_vopnet", node_name="rsMat_Vol")
 
     # Set color for node to dark red
     rsMat_Cd_Matte.setColor(hou.Color(0.8, 0.016, 0.016))
     rsMat_Cd_Reflect.setColor(hou.Color(0.8, 0.016, 0.016))
     rsMat_Glass.setColor(hou.Color(0.8, 0.016, 0.016))
+    rsMat_Vol.setColor(hou.Color(0.8, 0.016, 0.016))
 
     # Position nodes
     rsMat_Cd_Matte.setPosition([0, 2])
     rsMat_Cd_Reflect.setPosition([0, 4])
     rsMat_Glass.setPosition([0, 6])
+    rsMat_Vol.setPosition([0, 8])
 
     #########################################
     # Access inside rsMat_Cd_Matte to create nodes
@@ -571,6 +574,21 @@ def create_matNodeNet():
     # Connect Material_Comp to Surface in redshift_material
     glass_out.setInput(0, glass_mat, 0)
 
+    #########################################
+    # Access inside rsMat_Vol to create node
+    vol_mat = hou.node('/mat/rsMat_Vol/Material1')
+    vol_vol = rsMat_Vol.createNode("redshift::Volume", node_name="Volume_In")
+
+    # Position nodes
+    vol_vol.setPosition([-3, 0])
+
+    # Destroy existing mat node within mat builder; it was auto created at onset
+    vol_mat.destroy(False)
+
+    # Assign existing redshift material out node to variable
+    vol_out = rsMat_Vol.node('redshift_material1')
+    # Connect Volume (out port 0) to Volume (in port 5) in redshift_material
+    vol_out.setInput(4, vol_vol, 0)
 
 #########################################################
 # Collect functions to generate all new nodes at startup
