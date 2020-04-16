@@ -73,7 +73,7 @@ def create_geoNodeNet():
     geonet.setComment("GEONET")
     geonet.setColor(hou.Color(0.302, 0.525, 0.114))
 
-    geo_new_node.setPosition([5.5, 6])
+    geo_new_node.setPosition([5.5, 5])
     # Add geo node to network box
     geonet.addItem(geo_new_node)
 
@@ -98,7 +98,7 @@ def create_geoBkgdGrid():
     # Set color for node to dark green
     grid_new_node.setColor(hou.Color(0.302, 0.525, 0.114))
     # Position in obj
-    grid_new_node.setPosition([5.5, 5])
+    grid_new_node.setPosition([5.5, 6])
     # Turn off geo node select flag
     grid_new_node.setDisplayFlag(False)
     # Transform grid geo node away from scene center
@@ -144,7 +144,7 @@ def create_geoBkgdGrid():
     # Set color for node to red
     rndrgeo_grid_node.setColor(hou.Color(0.8, 0.016, 0.016))
     # Position node in obj
-    rndrgeo_grid_node.setPosition([15.5, 5])
+    rndrgeo_grid_node.setPosition([15.5, 6])
     # Set material to matte material
     rndrgeo_grid_node.setParms({"shop_materialpath": "/mat/rsMat_Cd_Matte"})
 
@@ -247,7 +247,7 @@ def create_rndrNodeNet():
     rndrgeonet.setColor(hou.Color(0.8, 0.016, 0.016))
 
     # Set node position
-    rndrgeo_new_node.setPosition([15.5, 6])
+    rndrgeo_new_node.setPosition([15.5, 5])
     # Add geo node to network box
     rndrgeonet.addItem(rndrgeo_new_node)
 
