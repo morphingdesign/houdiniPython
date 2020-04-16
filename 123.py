@@ -455,7 +455,7 @@ def create_redshiftNodeNet():
     redRop.setParms({"RS_renderCamera": "/obj/cam_1080"})
     # Set to No Gamma
     redRop.setParms({"RS_gammaFileMode": "noGamma"})
-    # Set render camera to main camera
+    # Set primary engine to Brute Force
     redRop.setParms({"PrimaryGIEngine": "RS_GIENGINE_BRUTE_FORCE"})
     # Set render objects
     redRop.setParms({"RS_objects_candidate": ""})
@@ -532,7 +532,7 @@ def create_matNodeNet():
 
     # Assign existing redshift material out node to variable
     cdmatte_out = rsMat_Cd_Matte.node('redshift_material1')
-    # Connect Material_Comp to Surface in redshift_material
+    # Connect Material to Surface in redshift_material
     cdmatte_out.setInput(0, cdmatte_mat, 0)
 
     #########################################
@@ -555,7 +555,7 @@ def create_matNodeNet():
 
     # Assign existing redshift material out node to variable
     cdreflect_out = rsMat_Cd_Reflect.node('redshift_material1')
-    # Connect Material_Comp to Surface in redshift_material
+    # Connect Material to Surface in redshift_material
     cdreflect_out.setInput(0, cdreflect_mat, 0)
 
     #########################################
@@ -571,7 +571,7 @@ def create_matNodeNet():
 
     # Assign existing redshift material out node to variable
     glass_out = rsMat_Glass.node('redshift_material1')
-    # Connect Material_Comp to Surface in redshift_material
+    # Connect Material to Surface in redshift_material
     glass_out.setInput(0, glass_mat, 0)
 
     #########################################
