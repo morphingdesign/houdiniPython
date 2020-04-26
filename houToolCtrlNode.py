@@ -33,3 +33,28 @@ curNode.setColor(hou.Color(0.094, 0.369, 0.69))
 
 # Sets the node shape to be a circle
 curNode.setUserData('nodeshape', 'circle')
+
+####################################################################
+# Add custom parameters
+
+# Add folder used to collect all newly create parameters
+folder = hou.FolderParmTemplate("folder", "Folder Name")
+# Define folder type; default is Tabs. Set to Simple
+folder.setFolderType(hou.folderType.Simple)
+
+# Add parameter types, defined by parameter name, label, and number of components.
+# Add float parameter
+folder.addParmTemplate(hou.FloatParmTemplate("parm1", "Parameter 1 Name", 1))
+# Add vector2 parameter
+folder.addParmTemplate(hou.FloatParmTemplate("parm2", "Parameter 2 Name", 2))
+# Add vector3 parameter
+folder.addParmTemplate(hou.FloatParmTemplate("parm3", "Parameter 3 Name", 3))
+# Add integer parameter
+folder.addParmTemplate(hou.IntParmTemplate("parm4", "Parameter 4 Name", 1))
+
+# Add parameters to node
+# Define parameter group used to collect folder/s
+group = curNode.parmTemplateGroup()
+# Add folder to group and group to node
+group.append(folder)
+curNode.setParmTemplateGroup(group)
