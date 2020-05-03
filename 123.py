@@ -605,6 +605,12 @@ def create_matNodeNet():
     subP_mat_tex_metal = rsMat_SubP.createNode("redshift::TextureSampler", node_name="Texture_Metal")
     subP_mat_tex_normal = rsMat_SubP.createNode("redshift::NormalMap", node_name="Texture_Normal")
 
+    # Assign existing redshift material out node to variable
+    subP_mat.setInput(0, subP_mat_tex_diffuse, 0)   # To diffuse_color
+    subP_mat.setInput(7, subP_mat_tex_rough, 0)     # To refl_roughness
+    subP_mat.setInput(14, subP_mat_tex_metal, 0)    # To refl_metalness
+    subP_mat.setInput(49, subP_mat_tex_normal, 0)   # To bump_input
+
     # Organize child nodes layout
     rsMat_SubP.layoutChildren()
 
