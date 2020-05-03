@@ -497,18 +497,21 @@ def create_matNodeNet():
     rsMat_Cd_Reflect = mat.createNode("redshift_vopnet", node_name="rsMat_Cd_Reflect")
     rsMat_Glass = mat.createNode("redshift_vopnet", node_name="rsMat_Glass")
     rsMat_Vol = mat.createNode("redshift_vopnet", node_name="rsMat_Vol")
+    rsMat_SubP = mat.createNode("redshift_vopnet", node_name="rsMat_SubP")
 
     # Set color for node to dark red
     rsMat_Cd_Matte.setColor(hou.Color(0.8, 0.016, 0.016))
     rsMat_Cd_Reflect.setColor(hou.Color(0.8, 0.016, 0.016))
     rsMat_Glass.setColor(hou.Color(0.8, 0.016, 0.016))
     rsMat_Vol.setColor(hou.Color(0.8, 0.016, 0.016))
+    rsMat_SubP.setColor(hou.Color(0.8, 0.016, 0.016))
 
     # Position nodes
     rsMat_Cd_Matte.setPosition([0, 2])
     rsMat_Cd_Reflect.setPosition([0, 4])
     rsMat_Glass.setPosition([0, 6])
-    rsMat_Vol.setPosition([0, 8])
+    rsMat_Vol.setPosition([0, 8]
+    rsMat_SubP.setPosition([0, 10])
 
     #########################################
     # Access inside rsMat_Cd_Matte to create nodes
