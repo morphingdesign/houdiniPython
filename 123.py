@@ -510,7 +510,7 @@ def create_matNodeNet():
     rsMat_Cd_Matte.setPosition([0, 2])
     rsMat_Cd_Reflect.setPosition([0, 4])
     rsMat_Glass.setPosition([0, 6])
-    rsMat_Vol.setPosition([0, 8]
+    rsMat_Vol.setPosition([0, 8])
     rsMat_SubP.setPosition([0, 10])
 
     #########################################
