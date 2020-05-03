@@ -614,6 +614,16 @@ def create_matNodeNet():
     # Organize child nodes layout
     rsMat_SubP.layoutChildren()
 
+    # Set material parameters to align with Substance color management
+    # Ref: https://docs.substance3d.com/integrations/redshift-substance-painter-196215709.html
+    # Set BRDF to GGX
+    # By default, this is set to Beckmann
+    subP_mat.setParms({"refl_brdf": "1"})
+    # Set Fresnel Type to Metalness
+    # By default, this is set to IOR
+    subP_mat.setParms({"refl_fresnel_mode": "2"})
+    # Normal texture params are set correctly by default to tangent space normal and height scale of 1.
+
 
 #########################################################
 # Collect functions to generate all new nodes at startup
