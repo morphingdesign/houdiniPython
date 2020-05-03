@@ -597,6 +597,18 @@ def create_matNodeNet():
     # Connect Volume (out port 0) to Volume (in port 5) in redshift_material
     vol_out.setInput(4, vol_vol, 0)
 
+    #########################################
+    # Access inside rsMat_SubP to create nodes
+    subP_mat = hou.node('/mat/rsMat_SubP/Material1')
+    subP_mat_tex_diffuse = rsMat_SubP.createNode("redshift::TextureSampler", node_name="Texture_Diffuse")
+    subP_mat_tex_rough = rsMat_SubP.createNode("redshift::TextureSampler", node_name="Texture_Roughness")
+    subP_mat_tex_metal = rsMat_SubP.createNode("redshift::TextureSampler", node_name="Texture_Metal")
+    subP_mat_tex_normal = rsMat_SubP.createNode("redshift::NormalMap", node_name="Texture_Normal")
+
+    # Organize child nodes layout
+    rsMat_SubP.layoutChildren()
+
+
 #########################################################
 # Collect functions to generate all new nodes at startup
 # in new main() function
