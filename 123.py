@@ -598,11 +598,38 @@ def create_matNodeNet():
     vol_out.setInput(4, vol_vol, 0)
 
     #########################################
+    # Coordinate textures and material setup in RS SubP mat node
+
+    ##################
+    # Add custom parameters for texture input into RS SubP mat node
+    # Add folder used to collect all newly create parameters, namely texture inputs
+    subP_mat_folder = hou.FolderParmTemplate("folder", "Textures")
+    # Define folder type; default is Tabs. Set to Simple
+    subP_mat_folder.setFolderType(hou.folderType.Simple)
+    # Define parameter group used to collect folder/s
+    group = rsMat_SubP.parmTemplateGroup()
+
+    # Add string, file reference parameters
+    # Diffuse texture
+    subP_mat_folder.addParmTemplate(hou.StringParmTemplate("tex_diffuse", "Diffuse", 1, string_type=hou.stringParmType.FileReference, file_type=hou.fileType.Image))
+    # Roughness texture
+    subP_mat_folder.addParmTemplate(hou.StringParmTemplate("tex_roughness", "Roughness", 1, string_type=hou.stringParmType.FileReference, file_type=hou.fileType.Image))
+    # Metallic texture
+    subP_mat_folder.addParmTemplate(hou.StringParmTemplate("tex_metallic", "Metallic", 1, string_type=hou.stringParmType.FileReference, file_type=hou.fileType.Image))
+    # Normal texture
+    subP_mat_folder.addParmTemplate( hou.StringParmTemplate("tex_normal", "Normal", 1, string_type=hou.stringParmType.FileReference, file_type=hou.fileType.Image))
+
+    # Add folder to group and group to RS SubP mat node
+    group.append(subP_mat_folder)
+    rsMat_SubP.setParmTemplateGroup(group)
+
+    ##################
+
     # Access inside rsMat_SubP to create nodes
     subP_mat = hou.node('/mat/rsMat_SubP/Material1')
     subP_mat_tex_diffuse = rsMat_SubP.createNode("redshift::TextureSampler", node_name="Texture_Diffuse")
     subP_mat_tex_rough = rsMat_SubP.createNode("redshift::TextureSampler", node_name="Texture_Roughness")
-    subP_mat_tex_metal = rsMat_SubP.createNode("redshift::TextureSampler", node_name="Texture_Metal")
+    subP_mat_tex_metal = rsMat_SubP.createNode("redshift::TextureSampler", node_name="Texture_Metallic")
     subP_mat_tex_normal = rsMat_SubP.createNode("redshift::NormalMap", node_name="Texture_Normal")
 
     # Assign existing redshift material out node to variable
@@ -611,10 +638,12 @@ def create_matNodeNet():
     subP_mat.setInput(14, subP_mat_tex_metal, 0)    # To refl_metalness
     subP_mat.setInput(49, subP_mat_tex_normal, 0)   # To bump_input
 
-    # Organize child nodes layout
-    rsMat_SubP.layoutChildren()
+    ##################
 
-    # Set material parameters to align with Substance color management
+    # Set material parameters
+
+
+    # Align with Substance color management
     # Ref: https://docs.substance3d.com/integrations/redshift-substance-painter-196215709.html
     # Set BRDF to GGX
     # By default, this is set to Beckmann
@@ -624,6 +653,12 @@ def create_matNodeNet():
     subP_mat.setParms({"refl_fresnel_mode": "2"})
     # Normal texture params are set correctly by default to tangent space normal and height scale of 1.
 
+    ##################
+
+    # Organize child nodes layout
+    rsMat_SubP.layoutChildren()
+
+    #########################################
 
 #########################################################
 # Collect functions to generate all new nodes at startup
