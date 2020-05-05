@@ -685,4 +685,8 @@ def main():
 
 #########################################################
 # Call main function
-main()
+# Check if program running main function
+if __name__ == '__main__':
+    main()
+# Intended to differentiate between program running main and
+# all included functions or for calling individual functions
