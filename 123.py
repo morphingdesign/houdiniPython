@@ -4,10 +4,16 @@
 
 import sys
 
-# Reset path to user-defined path with 'username'
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# IMPORTANT: Reset path to user-defined path with 'username'
 library_path = r'C:\Users\username\Documents\houdini18.0\scripts'
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 sys.path.append(library_path)
 from common_py_lib import utils
+
 
 #########################################################
 # Function to create blank ref geo node

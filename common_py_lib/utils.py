@@ -1,4 +1,5 @@
 #########################################################
+"""Custom Houdini Library for use with startup and quick node creation"""
 
 # Function to create lop network
 def lib_create_lopNodeNet(obj):
