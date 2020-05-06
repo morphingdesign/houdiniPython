@@ -1,6 +1,13 @@
 # 123.py
-# File is run when Houdini starts up a new hou file
+"""Start-up file runs on Houdini load"""
 # Requires Redshift
+
+import sys
+
+# Reset path to user-defined path with 'username'
+library_path = r'C:\Users\username\Documents\houdini18.0\scripts'
+sys.path.append(library_path)
+from common_py_lib import utils
 
 #########################################################
 # Function to create blank ref geo node
@@ -668,6 +675,16 @@ def create_matNodeNet():
     #########################################
 
 #########################################################
+# Function to create lop network
+def create_lopNodeNet():
+    # Access obj network. Var used to pass Houdini library
+    # into utils lib function
+    obj = hou.node("/obj")
+
+    # Access function from utils lib
+    utils.lib_create_lopNodeNet(obj)
+
+#########################################################
 # Collect functions to generate all new nodes at startup
 # in new main() function
 def main():
@@ -682,6 +699,8 @@ def main():
     create_matNodeNet()
     # accessory content creation
     create_geoBkgdGrid()
+    # create lop net
+    create_lopNodeNet()
 
 #########################################################
 # Call main function
