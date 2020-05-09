@@ -13,3 +13,19 @@ Houdini tools and operations
         * These are located within this repo
     * Context
         * Select applicable network contexts, such as <code>OBJ</code> and/or <code>SOP</code>, or others as applicable.
+#
+### Template File
+* Documented within the 123.py file and intended to expedite the process of starting a working file with prebuilt nodes and networks.
+* The following are some screencaps of networks with the prebuilt nodes:
+
+*Object Network*
+
+![Houdini Object Network](img/20200508_HouTemplate_ObjNet.PNG)      
+        
+*Material Network*
+
+![Houdini Object Network](img/20200508_HouTemplate_MatNet.PNG)
+
+*Out Network*
+
+![Houdini Object Network](img/20200508_HouTemplate_OutNet.PNG)
