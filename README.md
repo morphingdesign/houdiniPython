@@ -14,9 +14,10 @@ Houdini tools and operations
     * Context
         * Select applicable network contexts, such as <code>OBJ</code> and/or <code>SOP</code>, or others as applicable.
 #
-### Template File
+### Starting Template File
 File: [123.py](123.py)
 * Documented within the 123.py file and intended to expedite the process of starting a working file with prebuilt nodes and networks.
+* Currently set up with Redshift renderer (ROP & materials)
 * The following are some screencaps of networks with the prebuilt nodes:
 
 | *Object Network* |

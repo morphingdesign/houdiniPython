@@ -9,3 +9,10 @@ def lib_create_lopNodeNet(obj):
     # to it otherwise will need to be made explicit, as noted in
     # SideFX doc: https://www.sidefx.com/docs/houdini/hom/commandline.html
     lop_new_node = obj.createNode("lopnet", node_name="LOPNet")
+
+# Function to create mat node
+def lib_create_matNode(mat, name, color, pos):
+    """Create mat node, color, and position"""
+    name = mat.createNode("redshift_vopnet", node_name=name)
+    name.setColor(color)
+    name.setPosition(pos)
