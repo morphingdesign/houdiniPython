@@ -14,5 +14,7 @@ def lib_create_lopNodeNet(obj):
 def lib_create_matNode(mat, name, color, pos):
     """Create mat node, color, and position"""
     name = mat.createNode("redshift_vopnet", node_name=name)
+    # Set color using hou color system (RGB)
     name.setColor(color)
+    # Position nodes using (x, y) values
     name.setPosition(pos)
