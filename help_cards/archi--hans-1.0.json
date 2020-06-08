@@ -1,0 +1,207 @@
+{
+  "body": [
+    {
+      "indent": 0,
+      "text": [
+        "Title"
+      ],
+      "type": "title",
+      "extent": [
+        0,
+        10
+      ],
+      "level": 0
+    },
+    {
+      "indent": 0,
+      "type": "summary",
+      "extent": [
+        77,
+        119
+      ],
+      "text": [
+        " Automatically does this and that."
+      ]
+    },
+    {
+      "body": [
+        {
+          "indent": 0,
+          "type": "para",
+          "extent": [
+            134,
+            369
+          ],
+          "text": [
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et \ndolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip \nex ea commodo consequat."
+          ]
+        },
+        {
+          "indent": 0,
+          "type": "para",
+          "extent": [
+            369,
+            432
+          ],
+          "text": [
+            "Separate paragraphs by adding a full line between paragraphs."
+          ]
+        },
+        {
+          "indent": 0,
+          "type": "para",
+          "extent": [
+            432,
+            648
+          ],
+          "text": [
+            "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. \nExcepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+          ]
+        }
+      ],
+      "indent": 0,
+      "level": 2,
+      "text": [
+        "Overview"
+      ],
+      "extent": [
+        119,
+        134
+      ],
+      "container": true,
+      "type": "h",
+      "id": null
+    },
+    {
+      "body": [
+        {
+          "body": [
+            {
+              "body": [
+                {
+                  "indent": 8,
+                  "type": "para",
+                  "extent": [
+                    706,
+                    754
+                  ],
+                  "text": [
+                    "This parameter controls this and that."
+                  ]
+                }
+              ],
+              "indent": 0,
+              "text": [
+                "Float Parameter"
+              ],
+              "role": "item",
+              "attrs": {
+                "id": "floatparameter"
+              },
+              "extent": [
+                660,
+                678
+              ],
+              "container": true,
+              "type": "parameters_item"
+            },
+            {
+              "body": [
+                {
+                  "indent": 8,
+                  "type": "para",
+                  "extent": [
+                    795,
+                    833
+                  ],
+                  "text": [
+                    "This controls this and that."
+                  ]
+                }
+              ],
+              "indent": 0,
+              "text": [
+                "Uniform Scale"
+              ],
+              "role": "item",
+              "attrs": {
+                "id": "uniformscale"
+              },
+              "extent": [
+                754,
+                769
+              ],
+              "container": true,
+              "type": "parameters_item"
+            }
+          ],
+          "container": true,
+          "role": "item_group",
+          "type": "parameters_item_group"
+        }
+      ],
+      "indent": 0,
+      "level": 1,
+      "text": "Parameters",
+      "role": "section",
+      "extent": [
+        648,
+        660
+      ],
+      "container": true,
+      "type": "parameters_section",
+      "id": "parameters"
+    },
+    {
+      "body": [
+        {
+          "indent": 0,
+          "type": "para",
+          "extent": [
+            1012,
+            1057
+          ],
+          "text": [
+            {
+              "text": [
+                "Hans Palacios"
+              ],
+              "scheme": null,
+              "type": "link",
+              "exists": true,
+              "value": "https://www.hanspalacios.com"
+            }
+          ]
+        }
+      ],
+      "indent": 0,
+      "level": 1,
+      "text": [
+        "Section title"
+      ],
+      "role": "section",
+      "extent": [
+        992,
+        1012
+      ],
+      "container": true,
+      "type": "name_section",
+      "id": "name"
+    }
+  ],
+  "summary": [
+    " Automatically does this and that."
+  ],
+  "type": "root",
+  "attrs": {
+    "version": "1.0",
+    "namespace": "archi",
+    "internal": "hans",
+    "context": "obj",
+    "type": "node",
+    "icon": "/nodes/sop/archi--hans-1.0/hansPalacios_parasiteSketchUp_03.png"
+  },
+  "title": [
+    "Title"
+  ]
+}
