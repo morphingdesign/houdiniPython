@@ -706,7 +706,7 @@ def main():
     # accessory content creation
     create_geoBkgdGrid()
     # create lop net
-    create_lopNodeNet()
+    #create_lopNodeNet()
 
 #########################################################
 # Call main function
