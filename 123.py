@@ -1,6 +1,6 @@
 # 123.py
-"""Start-up file runs on Houdini load"""
-# Requires Redshift
+"""Start-up file runs on Houdini load. Requires Redshift 3d to be
+installed and active in Houdini. Current Houdini version 18.0.460."""
 
 import sys
 
