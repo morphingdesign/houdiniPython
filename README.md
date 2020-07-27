@@ -18,6 +18,7 @@ Houdini tools and operations
 File: [123.py](123.py)
 * Documented within the 123.py file and intended to expedite the process of starting a working file with prebuilt nodes and networks.
 * Currently set up with Redshift renderer (ROP & materials)
+* Accompanied by supporting [utils.py](common_py_lib/utils.py) with functions
 * The following are some screencaps of networks with the prebuilt nodes:
 
 | *Object Network* |
@@ -27,3 +28,7 @@ File: [123.py](123.py)
 | *Material Network* | *Out Network* |
 | --- | ---|
 | ![Houdini Object Network](img/20200508_HouTemplate_MatNet.PNG) | ![Houdini Object Network](img/20200508_HouTemplate_OutNet.PNG) |
+#
+### SOP Nodes
+* SideFX Labs Rizom nodes
+    * Default parameter noting path to Rizom.exe configured for 2020
