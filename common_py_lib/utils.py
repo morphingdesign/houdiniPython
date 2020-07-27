@@ -18,3 +18,8 @@ def lib_create_matNode(mat, name, color, pos):
     name.setColor(color)
     # Position nodes using (x, y) values
     name.setPosition(pos)
+
+# Function to set path to Rizom.exe on disk
+def lib_set_rizomExe(sop_name):
+    """Set path to Rizom.exe"""
+    sop_name.parm("rizomloc").set("C:/Program Files/Rizom Lab/RizomUV 2020/rizomuv.exe")
