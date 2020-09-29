@@ -1,6 +1,6 @@
 # 123.py
 """Start-up file runs on Houdini load. Requires Redshift 3d to be
-installed and active in Houdini. Current Houdini version 18.0.460."""
+installed and active in Houdini. Current Houdini version 18.0.499."""
 
 import sys
 
@@ -690,6 +690,17 @@ def create_lopNodeNet():
     # Access function from utils lib
     utils.lib_create_lopNodeNet(obj)
 
+    #########################################
+
+#########################################################
+# Function to configure playbar options
+def config_playbar():
+    pb = hou.playbar
+    # Enable only if realtime playback toggle is disabled.
+    pb.setRealTime(True) if pb.isRealTime() == False else Null
+
+    #########################################
+
 #########################################################
 # Collect functions to generate all new nodes at startup
 # in new main() function
@@ -707,6 +718,8 @@ def main():
     create_geoBkgdGrid()
     # create lop net
     #create_lopNodeNet()
+    # Configure playbar options
+    config_playbar()
 
 #########################################################
 # Call main function
