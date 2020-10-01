@@ -711,24 +711,36 @@ def config_playbar():
     #########################################
 
 #########################################################
+# Function to display start dialog box
+def startMenu():
+    user_enter = hou.ui.displayMessage('Start Houdini', buttons = ('OK', 'CANCEL'))
+    return user_enter
+
+    #########################################
+
+#########################################################
 # Collect functions to generate all new nodes at startup
 # in new main() function
 def main():
-    # content creation
-    create_refNodeNet()
-    create_geoNodeNet()
-    create_dopNodeNet()
-    create_rndrNodeNet()
-    create_cameraNodeNet()
-    create_redshiftNodeNet()
-    create_lightNodeNet()
-    create_matNodeNet()
-    # accessory content creation
-    create_geoBkgdGrid()
-    # create lop net
-    #create_lopNodeNet()
-    # Configure playbar options
-    config_playbar()
+    if not startMenu():
+        # content creation
+        create_refNodeNet()
+        create_geoNodeNet()
+        create_dopNodeNet()
+        create_rndrNodeNet()
+        create_cameraNodeNet()
+        create_redshiftNodeNet()
+        create_lightNodeNet()
+        create_matNodeNet()
+        # accessory content creation
+        create_geoBkgdGrid()
+        # create lop net
+        #create_lopNodeNet()
+        # Configure playbar options
+        config_playbar()
+    else:
+        hou.exit(0)
+
 
 #########################################################
 # Call main function
