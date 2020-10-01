@@ -14,6 +14,15 @@ library_path = r'C:\Users\username\Documents\houdini18.0\scripts'
 sys.path.append(library_path)
 from common_py_lib import utils
 
+# Node/Net Color Variables  - Settings
+ref_color = hou.Color(0.573, 0.353, 0.0)
+geo_color = hou.Color(0.302, 0.525, 0.114)
+dop_color = hou.Color(0.384, 0.184, 0.329)
+rndr_color = hou.Color(0.8, 0.016, 0.016)
+light_color = hou.Color(1.0, 0.725, 0.0)
+cam_color = hou.Color(0.094, 0.369, 0.69)
+eof_color = hou.Color(0.8, 0.016, 0.016)
+
 
 #########################################################
 # Function to create blank ref geo node
@@ -29,7 +38,7 @@ def create_refNodeNet():
     ref_new_node.setSelectableInViewport(False)
 
     # Set color for node to dark brown
-    ref_new_node.setColor(hou.Color(0.573, 0.353, 0.0))
+    ref_new_node.setColor(ref_color)
 
     #########################################
     # Set parameters
@@ -46,7 +55,7 @@ def create_refNodeNet():
 
     # Set network box label & color
     refnet.setComment("REFNET")
-    refnet.setColor(hou.Color(0.573, 0.353, 0.0))
+    refnet.setColor(ref_color)
 
     ref_new_node.setPosition([0.5, 6])
     # Add ref node to network box
