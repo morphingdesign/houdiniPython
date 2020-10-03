@@ -317,7 +317,7 @@ def create_lightNodeNet():
     #########################################
     # Set dome light parameters
     # Add path to default Houdini HDRI in light dome
-    rslightdome_node.setParms({"env_map": "D:/OneDrive/01_Resources/HDRI/HdrStudioCharacterRembrandt001/HdrStudioCharacterRembrandt001/8K/HdrStudioCharacterRembrandt001_HDR_8K.exr"})
+    rslightdome_node.setParms({"env_map": "D:/DataSync/01_Resources/HDRI/HdrStudioCharacterRembrandt001/HdrStudioCharacterRembrandt001/8K/HdrStudioCharacterRembrandt001_HDR_8K.exr"})
     # Orient hdri for frontal view in cam
     rslightdome_node.setParms({"ry":"270"})
     # Disable HDRI background in light dome
@@ -408,7 +408,7 @@ def create_cameraNodeNet():
     cam_node.setParms(res)
 
     # Position camera for viewing scene
-    cam_node.setParms({"ty": "0.5"})
+    cam_node.setParms({"ty": "0.0"})
     cam_node.setParms({"tz": "5.0"})
 
     # DISABLE RS
@@ -417,7 +417,7 @@ def create_cameraNodeNet():
     # Disable Houdini cam DOF link
     cam_node.setParms({"RS_campro_dofUseHoudiniCamera": "0"})
     # Adjust DOF power to be lower
-    cam_node.setParms({"RS_campro_dofPower": "0.001"})
+    cam_node.setParms({"RS_campro_dofPower": "0.01"})
     # Set Houdini cam focus distance to variable
     focus = hou.parm('/obj/cam_1080/focus')
     # Use focus distance variable as channel reference in RS cam
