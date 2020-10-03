@@ -722,24 +722,24 @@ def startMenu():
 # Collect functions to generate all new nodes at startup
 # in new main() function
 def main():
-    if not startMenu():
-        # content creation
-        create_refNodeNet()
-        create_geoNodeNet()
-        create_dopNodeNet()
-        create_rndrNodeNet()
-        create_cameraNodeNet()
-        create_redshiftNodeNet()
-        create_lightNodeNet()
-        create_matNodeNet()
-        # accessory content creation
-        create_geoBkgdGrid()
-        # create lop net
-        #create_lopNodeNet()
-        # Configure playbar options
-        config_playbar()
-    else:
-        hou.exit(0)
+    #if not startMenu():
+    # content creation
+    create_refNodeNet()
+    create_geoNodeNet()
+    create_dopNodeNet()
+    create_rndrNodeNet()
+    create_cameraNodeNet()
+    create_redshiftNodeNet()
+    create_lightNodeNet()
+    create_matNodeNet()
+    # accessory content creation
+    create_geoBkgdGrid()
+    # create lop net
+    #create_lopNodeNet()
+    # Configure playbar options
+    config_playbar()
+    #else:
+    #    hou.exit(0)
 
 
 #########################################################
