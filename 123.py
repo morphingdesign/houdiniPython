@@ -75,7 +75,7 @@ def create_geoNodeNet():
     geo_new_node.setSelectableInViewport(False)
 
     # Set color for node to dark green
-    geo_new_node.setColor(hou.Color(0.302, 0.525, 0.114))
+    geo_new_node.setColor(geo_color)
 
     #########################################
     # Set parameters
@@ -93,7 +93,7 @@ def create_geoNodeNet():
 
     # Set network box label & color
     geonet.setComment("GEONET")
-    geonet.setColor(hou.Color(0.302, 0.525, 0.114))
+    geonet.setColor(geo_color)
 
     geo_new_node.setPosition([5.5, 5])
     # Add geo node to network box
@@ -103,7 +103,7 @@ def create_geoNodeNet():
 
     # Create null EOF node within, color & enable display
     geonet_EOF = geo_new_node.createNode("null", node_name="OUT")
-    geonet_EOF.setColor(hou.Color(0.8, 0.016, 0.016))
+    geonet_EOF.setColor(eof_color)
     geonet_EOF.setDisplayFlag(True)
 
 #########################################################
@@ -118,7 +118,7 @@ def create_geoBkgdGrid():
     # Turn off geo node select flag
     grid_new_node.setSelectableInViewport(False)
     # Set color for node to dark green
-    grid_new_node.setColor(hou.Color(0.302, 0.525, 0.114))
+    grid_new_node.setColor(geo_color)
     # Position in obj
     grid_new_node.setPosition([5.5, 6])
     # Turn off geo node select flag
@@ -134,7 +134,7 @@ def create_geoBkgdGrid():
 
     # Create null EOF node within, color & enable display
     geonet_EOF = grid_new_node.createNode("null", node_name="OUT")
-    geonet_EOF.setColor(hou.Color(0.8, 0.016, 0.016))
+    geonet_EOF.setColor(eof_color)
     geonet_EOF.setDisplayFlag(True)
 
     # Create color node within, set to blue
@@ -164,7 +164,7 @@ def create_geoBkgdGrid():
     # Turn off geo node select flag
     rndrgeo_grid_node.setSelectableInViewport(False)
     # Set color for node to red
-    rndrgeo_grid_node.setColor(hou.Color(0.8, 0.016, 0.016))
+    rndrgeo_grid_node.setColor(rndr_color)
     # Position node in obj
     rndrgeo_grid_node.setPosition([15.5, 6])
     # Set material to matte material
@@ -178,12 +178,12 @@ def create_geoBkgdGrid():
 
     # Create null EOF node within, color & enable display
     rndrgrid_eof = rndrgeo_grid_node.createNode("null", node_name="OUT")
-    rndrgrid_eof.setColor(hou.Color(0.8, 0.016, 0.016))
+    rndrgrid_eof.setColor(rndr_color)
     rndrgrid_eof.setDisplayFlag(True)
 
     # Create object merge node within & color
     rndrgrid_om = rndrgeo_grid_node.createNode("object_merge", node_name="get_grid_geo")
-    rndrgrid_om.setColor(hou.Color(0.302, 0.525, 0.114))
+    rndrgrid_om.setColor(geo_color)
     # Link OM obj with EOF in render grid geo obj
     rndrgrid_om.setParms({"objpath1": "/obj/geo_gridBkgd/OUT"})
 
@@ -211,7 +211,7 @@ def create_dopNodeNet():
     dop_node.setDisplayFlag(False)
 
     # Set color for node to dark purple
-    dop_node.setColor(hou.Color(0.384, 0.184, 0.329))
+    dop_node.setColor(dop_color)
 
     #########################################
     # Set parameters
@@ -227,7 +227,7 @@ def create_dopNodeNet():
 
     # Set network box label & color
     dopnet.setComment("DOPNET")
-    dopnet.setColor(hou.Color(0.384, 0.184, 0.329))
+    dopnet.setColor(dop_color)
 
     dop_node.setPosition([10.5, 6])
     # Add dop node to network box
@@ -247,7 +247,7 @@ def create_rndrNodeNet():
     rndrgeo_new_node.setSelectableInViewport(False)
 
     # Set color for node to red
-    rndrgeo_new_node.setColor(hou.Color(0.8, 0.016, 0.016))
+    rndrgeo_new_node.setColor(rndr_color)
 
     #########################################
     # Set parameters
@@ -266,7 +266,7 @@ def create_rndrNodeNet():
 
     # Set network box label & color
     rndrgeonet.setComment("RNDRNET")
-    rndrgeonet.setColor(hou.Color(0.8, 0.016, 0.016))
+    rndrgeonet.setColor(rndr_color)
 
     # Set node position
     rndrgeo_new_node.setPosition([15.5, 5])
@@ -277,12 +277,12 @@ def create_rndrNodeNet():
 
     # Create null EOF node within, color & enable display
     rndrnet_eof = rndrgeo_new_node.createNode("null", node_name="OUT")
-    rndrnet_eof.setColor(hou.Color(0.8, 0.016, 0.016))
+    rndrnet_eof.setColor(rndr_color)
     rndrnet_eof.setDisplayFlag(True)
 
     # Create object merge node within & color
     rndrnet_om = rndrgeo_new_node.createNode("object_merge", node_name="get_geo")
-    rndrnet_om.setColor(hou.Color(0.302, 0.525, 0.114))
+    rndrnet_om.setColor(geo_color)
 
     # Link OM obj with EOF in GEONET geo obj
     rndrnet_om.setParms({"objpath1": "/obj/geo_newGeo/OUT"})
@@ -360,9 +360,9 @@ def create_lightNodeNet():
     rslightback_node.setSelectableInViewport(False)
 
     # Set color for nodes to dark yellow
-    rslightdome_node.setColor(hou.Color(1.0, 0.725, 0.0))
-    rslightkey_node.setColor(hou.Color(1.0, 0.725, 0.0))
-    rslightback_node.setColor(hou.Color(1.0, 0.725, 0.0))
+    rslightdome_node.setColor(light_color)
+    rslightkey_node.setColor(light_color)
+    rslightback_node.setColor(light_color)
 
     # Move them so that they don't overlap other nodes
     rslightdome_node.setPosition([20.5, 6])
@@ -380,7 +380,7 @@ def create_lightNodeNet():
 
     # Set network box label & color
     lightnet.setComment("LIGHTNET")
-    lightnet.setColor(hou.Color(1.0, 0.725, 0.0))
+    lightnet.setColor(light_color)
 
     # Add geo node to network box
     lightnet.addItem(rslightdome_node)
@@ -433,8 +433,8 @@ def create_cameraNodeNet():
     cam_node.setSelectableInViewport(False)
 
     # Set color for nodes to dark blue
-    cam_origin.setColor(hou.Color(0.094, 0.369, 0.69))
-    cam_node.setColor(hou.Color(0.094, 0.369, 0.69))
+    cam_origin.setColor(cam_color)
+    cam_node.setColor(cam_color)
 
     # Set positions
     cam_origin.setPosition([25.5, 6])
@@ -451,7 +451,7 @@ def create_cameraNodeNet():
 
     # Set network box label & color
     camnet.setComment("CAMNET")
-    camnet.setColor(hou.Color(0.094, 0.369, 0.69))
+    camnet.setColor(cam_color)
 
     # Add geo node to network box
     camnet.addItem(cam_node)
@@ -497,8 +497,8 @@ def create_redshiftNodeNet():
     redIPR = out.createNode("Redshift_IPR")
 
     # Set color for node to dark red
-    redRop.setColor(hou.Color(0.8, 0.016, 0.016))
-    redIPR.setColor(hou.Color(0.8, 0.016, 0.016))
+    redRop.setColor(rndr_color)
+    redIPR.setColor(rndr_color)
 
     # Also, move it so that it doesn't overlap other nodes
     #redIPR.moveToGoodPosition()
@@ -516,14 +516,14 @@ def create_matNodeNet():
 
     # Create dict of mat nodes to create
     node_names = {'1': 'rsMat_Cd_Matte', '2': 'rsMat_Cd_Reflect', '3': 'rsMat_Glass', '4': 'rsMat_Vol', '5': 'rsMat_SubP'}
-    color = hou.Color(0.8, 0.016, 0.016)
+    mat_color = rndr_color
 
     # Iterate through dict values and generate nodes
     i = 1
     for name in node_names.values():
         posx = i * 2
         # Access function from utils lib
-        name = utils.lib_create_matNode(mat, name, color, [0, posx])
+        name = utils.lib_create_matNode(mat, name, mat_color, [0, posx])
         i += 1
 
     # Collect new nodes for use in internal setups
