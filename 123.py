@@ -167,6 +167,8 @@ def create_geoBkgdGrid():
     rndrgeo_grid_node.setColor(rndr_color)
     # Position node in obj
     rndrgeo_grid_node.setPosition([15.5, 6])
+    # Turn off node visibility flag
+    rndrgeo_grid_node.setDisplayFlag(False)
     # Set material to matte material
     rndrgeo_grid_node.setParms({"shop_materialpath": "/mat/rsMat_Cd_Matte"})
 
@@ -245,6 +247,9 @@ def create_rndrNodeNet():
 
     # Turn off geo node select flag
     rndrgeo_new_node.setSelectableInViewport(False)
+
+    # Turn off node visibility flag
+    rndrgeo_new_node.setDisplayFlag(False)
 
     # Set color for node to red
     rndrgeo_new_node.setColor(rndr_color)
