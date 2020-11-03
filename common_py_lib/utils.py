@@ -1,30 +1,97 @@
-#########################################################
-"""Custom Houdini Library for use with startup and quick node creation"""
+# -----------------------------------------------------------
+# utils.py
+# v.1.0
+# Updated: 20201102
+# -----------------------------------------------------------
 
-# Function to create lop network
-def lib_create_lopNodeNet(obj):
-    """Create LOP node and network"""
+"""
+Custom Houdini utilities for use with startup and quick node creation
+"""
+
+
+# -----------------------------------------------------------
+# NETWORKS & NODES )))))))))))))))))))))))))))))))))))) START
+# -----------------------------------------------------------
+def lib_create_lopNodeNet(network):
+    r"""
+    Create LOP node and network
+
+    Args:
+        network:
+            Houdini network; typically 'obj'.
+
+    Returns:
+        None
+    """
     # Houdini library passed through as function parameter since
     # it is accessible directly through the 123.py file. Access
     # to it otherwise will need to be made explicit, as noted in
     # SideFX doc: https://www.sidefx.com/docs/houdini/hom/commandline.html
-    lop_new_node = obj.createNode("lopnet", node_name="LOPNet")
+    lop_new_node = network.createNode("lopnet", node_name="LOPNet")
 
-# Function to create mat node
-def lib_create_matNode(mat, name, color, pos):
-    """Create mat node, color, and position"""
-    name = mat.createNode("redshift_vopnet", node_name=name)
+#************************************************************
+
+def lib_create_matNode(network, name, color, pos):
+    r"""
+    Create mat node, color, and position
+
+    Args:
+        network:
+            Houdini network; typicall 'mat'.
+        name:
+            Node name.
+        color:
+            Node color.
+        position:
+            X, Y position as tuple.
+
+    Returns:
+        None
+    """
+
+    name = network.createNode("redshift_vopnet", node_name=name)
     # Set color using hou color system (RGB)
     name.setColor(color)
     # Position nodes using (x, y) values
     name.setPosition(pos)
 
-# Function to set path to Rizom.exe on disk
-def lib_set_rizomExe(sop_name):
-    """Set path to Rizom.exe"""
-    sop_name.parm("rizomloc").set("C:/Program Files/Rizom Lab/RizomUV 2020/rizomuv.exe")
+# -----------------------------------------------------------
+# NETWORKS & NODES )))))))))))))))))))))))))))))))))))))) END
+# -----------------------------------------------------------
 
-# Function to set parameter name to operator name
-def lib_set_opname(sop_name, parm_name):
-    """Set param name to op name"""
-    sop_name.parm(parm_name).set("`opname('.')`")
+# -----------------------------------------------------------
+# CUSTOM PARAMETERS ))))))))))))))))))))))))))))))))))) START
+# -----------------------------------------------------------
+def lib_set_rizomExe(object):
+    r"""
+    Set path to Rizom.exe
+
+    Args:
+        object:
+            Houdini object; typically 'node'.
+
+    Returns:
+        None
+    """
+    object.parm("rizomloc").set("C:/Program Files/Rizom Lab/RizomUV 2020/rizomuv.exe")
+
+#************************************************************
+
+def lib_set_opname(object, node_name):
+    r"""
+    Set param name to operator name
+
+    Args:
+        object:
+            Houdini object; typically 'node'.
+        node_name:
+            Formal node name.
+
+    Returns:
+        None
+    """
+    object.parm(node_name).set("`opname('.')`")
+
+# -----------------------------------------------------------
+# CUSTOM PARAMETERS ))))))))))))))))))))))))))))))))))))) END
+# -----------------------------------------------------------
