@@ -428,6 +428,8 @@ def create_cameraNodeNet():
     # Use focus distance variable as channel reference in RS cam
     cam_node.setParms({"RS_campro_dofDistance": focus})
 
+    # Add viewport comment
+    utils.lib_set_camViewComment(cam_node)
 
     #########################################
 
