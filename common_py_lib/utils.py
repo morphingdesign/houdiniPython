@@ -7,7 +7,8 @@
 """
 Custom Houdini utilities for use with startup and quick node creation
 """
-
+import hou
+import toolutils
 
 # -----------------------------------------------------------
 # NETWORKS & NODES )))))))))))))))))))))))))))))))))))) START
@@ -91,6 +92,40 @@ def lib_set_opname(object, node_name):
         None
     """
     object.parm(node_name).set("`opname('.')`")
+
+#************************************************************
+
+def lib_set_camViewComment(object):
+    r"""
+
+    """
+    ##################
+    # Add custom parameters for texture input into RS SubP mat node
+    # Add folder used to collect all newly create parameters, namely texture inputs
+    viewport_folder = hou.FolderParmTemplate("folder", "Viewport")
+    # Define folder type; default is Tabs. Set to Simple
+    viewport_folder.setFolderType(hou.folderType.Tabs)
+    # Define parameter group used to collect folder/s
+    group = object.parmTemplateGroup()
+
+    # Add string, file reference parameters
+    # Diffuse texture
+    viewport_folder.addParmTemplate(hou.StringParmTemplate("vcomment", "Viewport Comment", 1))
+
+    # Add folder to group and group to RS SubP mat node
+    group.append(viewport_folder)
+    object.setParmTemplateGroup(group)
+
+    #object.parm("vcomment").set('CAMERA: %10s' % ('$OS') + '\nRES: %27s' % ('`chs("resx")` x `chs("resy")`') + '\n{:.<42}'.format('') + '\nSHOT: %16s' % ('$SHOT') + '\nTAKE: %18s' % ('$ACTIVETAKE') + '\n{:.<42}'.format('') + '\nFRAME: %14s' % ('$F4'))
+    #object.parm("vcomment").set('CAMERA: %10s' % ('$OS') + '\nRES: %50s' % ('`chs("resx")` x `chs("resy")`') + '\n{:.<42}'.format('') + '\nSHOT: %17s' % ('$SHOT') + '\nTAKE: %22s' % ('$ACTIVETAKE') + '\n{:.<42}'.format('') + '\nFRAME: %14s' % ('$F4'))
+    object.parm("vcomment").set('CAMERA: %10s' % ('$OS')
+                                + '\nRES: %45s' % ('`chs("resx")` x `chs("resy")`')
+                                + '\n{:.<42}'.format('')
+                                + '\nSHOT: %18s' % ('$SHOT')
+                                + '\nTAKE: %25s' % ('$ACTIVETAKE')
+                                + '\n{:.<42}'.format('')
+                                + '\nFRAME: %14s' % ('$F4'))
+
 
 # -----------------------------------------------------------
 # CUSTOM PARAMETERS ))))))))))))))))))))))))))))))))))))) END
