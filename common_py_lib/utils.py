@@ -86,7 +86,7 @@ def lib_set_opname(object, node_name):
         object:
             Houdini object; typically 'node'.
         node_name:
-            Formal node name.
+            Parameter name for formal node name.
 
     Returns:
         None
@@ -97,7 +97,14 @@ def lib_set_opname(object, node_name):
 
 def lib_set_camViewComment(object):
     r"""
+    Set param name to operator name
 
+    Args:
+        object:
+            Houdini object; typically 'node'.
+
+    Returns:
+        None
     """
     ##################
     # Add custom parameters for texture input into RS SubP mat node
