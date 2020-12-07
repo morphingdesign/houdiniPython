@@ -3,7 +3,3 @@
 !.gitignore
 !.gitattributes
 basis*
-
-# User-specific stuff
-.idea/**/misc.xml
-.idea/**/houdini.iml
