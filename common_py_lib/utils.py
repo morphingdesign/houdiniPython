@@ -741,6 +741,7 @@ def lib_create_matNodeNet():
     subP_mat_tex_rough = rsMat_SubP.createNode("redshift::TextureSampler", node_name="Texture_Roughness")
     subP_mat_tex_metal = rsMat_SubP.createNode("redshift::TextureSampler", node_name="Texture_Metallic")
     subP_mat_tex_normal = rsMat_SubP.createNode("redshift::NormalMap", node_name="Texture_Normal")
+    subP_mat_bumpMap = rsMat_SubP.createNode("redshift::BumpMap")
 
     # Link texture/image file inputs at Mat Builder level to corresponding texture samplers
     # Note the backslash to preserve the interior quotation marks for the path
@@ -753,12 +754,18 @@ def lib_create_matNodeNet():
     subP_mat.setInput(0, subP_mat_tex_diffuse, 0)   # To diffuse_color
     subP_mat.setInput(7, subP_mat_tex_rough, 0)     # To refl_roughness
     subP_mat.setInput(14, subP_mat_tex_metal, 0)    # To refl_metalness
-    subP_mat.setInput(49, subP_mat_tex_normal, 0)   # To bump_input
+    subP_mat_bumpMap.setInput(0, subP_mat_tex_normal, 0)  # From normal to bumpMap
+    subP_mat.setInput(49, subP_mat_bumpMap, 0)      # To bump_input
 
     ##################
 
     # Set material parameters
 
+    # Specify operator input path to COPnet for use with Substance operator
+    #parms = ("tex_diffuse", "tex_roughness", "tex_metallic", "tex_normal")
+    #for parm in parms:
+         # Verify path to COPnet output Null node.
+    #    rsMat_SubP.setParms({parm: "op:`opfullpath('/obj/copnet/OUT')`"})
 
     # Align with Substance color management
     # Ref: https://docs.substance3d.com/integrations/redshift-substance-painter-196215709.html
