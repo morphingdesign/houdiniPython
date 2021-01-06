@@ -592,7 +592,7 @@ def lib_create_redshiftNodeNet():
 
 def lib_create_matNodeNet():
     r"""
-    Create collection base Redshift material nodes in material
+    Create collection in base Redshift material nodes in material
     network; color, and position
 
     Args:
@@ -750,7 +750,7 @@ def lib_create_matNodeNet():
     subP_mat_tex_metal.setParms({"tex0": "`chs(\"../tex_metallic\")`"})     # Link to metallic
     subP_mat_tex_normal.setParms({"tex0": "`chs(\"../tex_normal\")`"})      # Link to normal
 
-    # Assign existing redshift material out node to variable
+    # Link node outputs to inputs
     subP_mat.setInput(0, subP_mat_tex_diffuse, 0)   # To diffuse_color
     subP_mat.setInput(7, subP_mat_tex_rough, 0)     # To refl_roughness
     subP_mat.setInput(14, subP_mat_tex_metal, 0)    # To refl_metalness
@@ -781,6 +781,33 @@ def lib_create_matNodeNet():
 
     # Organize child nodes layout
     rsMat_SubP.layoutChildren()
+
+#************************************************************
+
+def lib_create_copNetForSbsar():
+    r"""
+        Create Substance Archive node in compositing
+        network
+
+        Args:
+            None
+
+        Returns:
+            None
+        """
+
+    # Create standalone compositing network
+    copnet = obj.createNode("cop2net", node_name="copnet")
+
+    # Create node to access Substance Archive file (sbsar) and null node
+    opSubP = copnet.createNode("sbs_archive")
+    opNull = copnet.createNode("null", node_name="OUT")
+
+    # Link node output to input
+    opNull.setInput(0, opSubP, 0)
+
+    # Organize child nodes layout
+    copnet.layoutChildren()
 
 # -----------------------------------------------------------
 # PRESET NETWORKS & NODES ))))))))))))))))))))))))))))))) END
