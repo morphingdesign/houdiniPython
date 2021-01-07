@@ -740,7 +740,7 @@ def lib_create_matNodeNet():
     subP_mat_tex_diffuse = rsMat_SubP.createNode("redshift::TextureSampler", node_name="Texture_Diffuse")
     subP_mat_tex_rough = rsMat_SubP.createNode("redshift::TextureSampler", node_name="Texture_Roughness")
     subP_mat_tex_metal = rsMat_SubP.createNode("redshift::TextureSampler", node_name="Texture_Metallic")
-    subP_mat_tex_normal = rsMat_SubP.createNode("redshift::NormalMap", node_name="Texture_Normal")
+    subP_mat_tex_normal = rsMat_SubP.createNode("redshift::TextureSampler", node_name="Texture_Normal")
     subP_mat_bumpMap = rsMat_SubP.createNode("redshift::BumpMap")
 
     # Link texture/image file inputs at Mat Builder level to corresponding texture samplers
@@ -782,33 +782,6 @@ def lib_create_matNodeNet():
     # Organize child nodes layout
     rsMat_SubP.layoutChildren()
 
-#************************************************************
-
-def lib_create_copNetForSbsar():
-    r"""
-        Create Substance Archive node in compositing
-        network
-
-        Args:
-            None
-
-        Returns:
-            None
-        """
-
-    # Create standalone compositing network
-    copnet = obj.createNode("cop2net", node_name="copnet")
-
-    # Create node to access Substance Archive file (sbsar) and null node
-    opSubP = copnet.createNode("sbs_archive")
-    opNull = copnet.createNode("null", node_name="OUT")
-
-    # Link node output to input
-    opNull.setInput(0, opSubP, 0)
-
-    # Organize child nodes layout
-    copnet.layoutChildren()
-
 # -----------------------------------------------------------
 # PRESET NETWORKS & NODES ))))))))))))))))))))))))))))))) END
 # -----------------------------------------------------------
@@ -832,7 +805,7 @@ def lib_create_matNode(network, name, color, pos):
             X, Y position as tuple.
 
     Returns:
-        None
+        Created network node.
     """
 
     name = network.createNode("redshift_vopnet", node_name=name)
@@ -840,6 +813,8 @@ def lib_create_matNode(network, name, color, pos):
     name.setColor(color)
     # Position nodes using (x, y) values
     name.setPosition(pos)
+    # Return network name for reference, if applicable
+    return name
 
 # -----------------------------------------------------------
 # CREATE NODES ))}}}})))))))))))))))))))))))))))))))))))) END
