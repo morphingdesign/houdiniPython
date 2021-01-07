@@ -716,6 +716,98 @@ def lib_create_matNodeNet():
 
 #************************************************************
 
+def lib_create_copMatNetForSbsar():
+    r"""
+        Create Substance Archive node in compositing
+        network and accompanying RSmat for Substance textures
+        in material network.
+
+        Args:
+            None
+
+        Returns:
+            None
+        """
+
+    #########################################
+
+    # Create standalone networks
+
+    ##################
+    # Collect selected nodes, if applicable; returns tuple.
+    selected = hou.selectedNodes()
+
+    # If node selected within network, add networks within,
+    # otherwise add networks to obj network.
+    if (len(selected) > 0):
+        # Specify first selected node
+        geo = selected[0]
+        copnet = geo.createNode("cop2net", node_name="copnet")
+        matnet = geo.createNode("matnet", node_name="matnet")
+    else:
+        # Create standalone networks
+        copnet = obj.createNode("cop2net", node_name="copnet")
+        matnet = obj.createNode("matnet", node_name="matnet")
+
+    #########################################
+
+    # Setup compositing network
+
+    # Create node to access Substance Archive file (sbsar) and null node
+    opSubP = copnet.createNode("sbs_archive")
+    opNull = copnet.createNode("null", node_name="OUT")
+
+    # Link node output to input
+    opNull.setInput(0, opSubP, 0)
+
+    # Organize child nodes layout
+    copnet.layoutChildren()
+
+    #########################################
+
+    # Setup material network
+
+    lib_create_RSMatForSubP(matnet, [0,0])
+
+    #########################################
+
+    # Access RS material in newly created mat network. Select 1st item
+    # from tuple returned by glob() matching pattern.
+
+    rsMat_SubP = matnet.glob("rsMat_SubP", ignore_case=False)[0]
+
+    ##################
+    # Set material parameters
+
+    # Specify operator input path to COPnet for use with Substance operator
+    parms = ("tex_diffuse", "tex_roughness", "tex_metallic", "tex_normal")
+    for parm in parms:
+        # Align path to COPnet output Null node.
+        # copnet.path() used to fill in path since it may vary depending
+        # on whether the COPnet is in OBJnet or selected geo node.
+        rsMat_SubP.setParms({parm: "op:`opfullpath('%s/OUT')`" % copnet.path()})
+
+    ##################
+    # Set texture parameters
+
+    # Texture output from sbsar node in COPnet is in layers, which
+    # need to be specified here per texture.
+
+    # Collect nodes in RS material specified as texture, which should
+    # return 4 texture nodes, in sequence.
+    textures = rsMat_SubP.glob("Texture*")
+    # Texture sequence aligns with the following list of typical
+    # layers that are input individually into each texture node's
+    # parameter specifying the layer it reads from the COPnet.
+    layers = ("Base Color", "Roughness", "Metallic", "Normal")
+    if (len(textures)==4):
+        # Iterate through each texture node in glob() collection.
+        for i in range(len(textures)):
+            # Set parameter value with layer name.
+            textures[i].setParms({"tex0_layername": layers[i]})
+
+#************************************************************
+
 def lib_create_RSMatForSubP(network, pos):
     r"""
     Create Redshift material with embedded structure for reading
