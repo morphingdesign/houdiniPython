@@ -603,7 +603,7 @@ def lib_create_matNodeNet():
     """
 
     # Create dict of mat nodes to create
-    node_names = {'1': 'rsMat_Cd_Matte', '2': 'rsMat_Cd_Reflect', '3': 'rsMat_Glass', '4': 'rsMat_Vol', '5': 'rsMat_SubP'}
+    node_names = {'1': 'rsMat_Cd_Matte', '2': 'rsMat_Cd_Reflect', '3': 'rsMat_Glass', '4': 'rsMat_Vol'}
     mat_color = rndr_color
 
     # Iterate through dict values and generate nodes
@@ -621,7 +621,6 @@ def lib_create_matNodeNet():
     rsMat_Cd_Reflect = hou.node('/mat/rsMat_Cd_Reflect')
     rsMat_Glass = hou.node('/mat/rsMat_Glass')
     rsMat_Vol = hou.node('/mat/rsMat_Vol')
-    rsMat_SubP = hou.node('/mat/rsMat_SubP')
 
     #########################################
     # Access inside rsMat_Cd_Matte to create nodes
@@ -708,6 +707,40 @@ def lib_create_matNodeNet():
     vol_out.setInput(4, vol_vol, 0)
 
     #########################################
+    # Create RS SubP mat node
+    lib_create_RSMatForSubP(mat, [0,10])
+
+# -----------------------------------------------------------
+# PRESET NETWORKS & NODES ))))))))))))))))))))))))))))))) END
+# -----------------------------------------------------------
+
+#************************************************************
+
+def lib_create_RSMatForSubP(network, pos):
+    r"""
+    Create Redshift material with embedded structure for reading
+    textures, in alignment with Substance Painter output or an
+    sbsar file linked via a compositing network.
+
+    Args:
+        network:
+            Houdini network; typically 'mat'.
+        position:
+            X, Y position as tuple.
+
+    Returns:
+        None
+    """
+
+    # Local variable for node color
+    mat_color = rndr_color
+
+    # Generate node
+    # Custom function returns node created so reference to variable persists
+    # throughout this function.
+    rsMat_SubP = lib_create_matNode(network, "rsMat_SubP", mat_color, pos)
+
+    #########################################
     # Coordinate textures and material setup in RS SubP mat node
 
     ##################
@@ -734,9 +767,12 @@ def lib_create_matNodeNet():
     rsMat_SubP.setParmTemplateGroup(group)
 
     ##################
+    # Access inside RS material by collecting material node matching pattern exactly
+    # The glob() function outputs a tuple, so selection will be the 1st and only node.
+    subP_mat = rsMat_SubP.glob("Material1", ignore_case=False)[0]
 
-    # Access inside rsMat_SubP to create nodes
-    subP_mat = hou.node('/mat/rsMat_SubP/Material1')
+    ##################
+    # Create texture nodes to link into material
     subP_mat_tex_diffuse = rsMat_SubP.createNode("redshift::TextureSampler", node_name="Texture_Diffuse")
     subP_mat_tex_rough = rsMat_SubP.createNode("redshift::TextureSampler", node_name="Texture_Roughness")
     subP_mat_tex_metal = rsMat_SubP.createNode("redshift::TextureSampler", node_name="Texture_Metallic")
@@ -761,12 +797,6 @@ def lib_create_matNodeNet():
 
     # Set material parameters
 
-    # Specify operator input path to COPnet for use with Substance operator
-    #parms = ("tex_diffuse", "tex_roughness", "tex_metallic", "tex_normal")
-    #for parm in parms:
-         # Verify path to COPnet output Null node.
-    #    rsMat_SubP.setParms({parm: "op:`opfullpath('/obj/copnet/OUT')`"})
-
     # Align with Substance color management
     # Ref: https://docs.substance3d.com/integrations/redshift-substance-painter-196215709.html
     # Set BRDF to GGX
@@ -781,10 +811,6 @@ def lib_create_matNodeNet():
 
     # Organize child nodes layout
     rsMat_SubP.layoutChildren()
-
-# -----------------------------------------------------------
-# PRESET NETWORKS & NODES ))))))))))))))))))))))))))))))) END
-# -----------------------------------------------------------
 
 # -----------------------------------------------------------
 # CREATE NODES ))}}}})))))))))))))))))))))))))))))))))) START
