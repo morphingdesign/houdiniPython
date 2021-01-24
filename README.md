@@ -16,7 +16,10 @@ Houdini tools and operations
 #
 ### Starting Template File
 File: [123.py](123.py)
-* Documented within the 123.py file and intended to expedite the process of starting a working file with prebuilt nodes and networks.
+* Coordinated to configure playbar.
+#
+### Scene RnD Shelf Tool
+* Documented within the [houToolSceneRnD.py](shelf/houToolSceneRnD.py) file and intended to expedite the process of starting a working file with prebuilt nodes and networks.
 * Currently set up with Redshift renderer (ROP & materials)
 * Accompanied by supporting [utils.py](common_py_lib/utils.py) with functions
 * The following are some screencaps of networks with the prebuilt nodes:
