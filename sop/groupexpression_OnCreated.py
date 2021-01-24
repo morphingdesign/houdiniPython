@@ -1,7 +1,7 @@
 # -----------------------------------------------------------
-# groupexpression.py
-# v.1.1
-# Updated: 20201207
+# groupexpression_OnCreated.py
+# v.1.2
+# Updated: 20210123
 # ----------------------------------------------------------
 
 """
@@ -22,6 +22,8 @@ node = kwargs['node']
 # -----------------------------------------------------------
 # Access function from utils lib to set operator name to group name
 utils.lib_set_opname(node, "groupname1")
+# Set node to group default color and shape
+utils.lib_set_groupNodeDefaults(node)
 # -----------------------------------------------------------
 # CUSTOMIZATIONS )))))))))))))))))))))))))))))))))}}))))) END
 # -----------------------------------------------------------
