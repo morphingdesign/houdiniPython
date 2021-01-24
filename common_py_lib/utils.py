@@ -1,7 +1,7 @@
 # -----------------------------------------------------------
 # utils.py
-# v.1.3
-# Updated: 20210123
+# v.1.4
+# Updated: 20210124
 # -----------------------------------------------------------
 
 """
@@ -28,6 +28,7 @@ light_color = hou.Color(1.0, 0.725, 0.0)
 cam_color = hou.Color(0.094, 0.369, 0.69)
 eof_color = hou.Color(0.8, 0.016, 0.016)
 group_color = hou.Color(1.0, 0.725, 0.0)
+delete_color = hou.Color(0.8, 0.016, 0.016)
 
 # -----------------------------------------------------------
 # GLOBAL VARIABLES )))))))))))))))))))))))))))))))))))))) END
@@ -738,6 +739,31 @@ def lib_set_groupNodeDefaults(object):
     object.setUserData('nodeshape', 'peanut')
     # Set default color to default global group color.
     object.setColor(group_color)
+
+#************************************************************
+
+def lib_set_deleteNodeDefaults(object):
+    r"""
+        Set default node shape and color for nodes that
+        employ deleting processes.
+
+        Args:
+            object:
+                Houdini object; typically 'node'.
+
+        Returns:
+            None
+    """
+
+    #########################################
+
+    # Create standalone networks
+
+    ##################
+    # Set default shape to 'star'.
+    object.setUserData('nodeshape', 'star')
+    # Set default color to default global group color.
+    object.setColor(delete_color)
 
 #************************************************************
 
