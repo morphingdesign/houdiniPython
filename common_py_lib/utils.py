@@ -29,6 +29,9 @@ cam_color = hou.Color(0.094, 0.369, 0.69)
 eof_color = hou.Color(0.8, 0.016, 0.016)
 group_color = hou.Color(1.0, 0.725, 0.0)
 delete_color = hou.Color(0.8, 0.016, 0.016)
+# Generic Color Palette
+color_black = hou.Color(0.0, 0.0, 0.0)
+color_white = hou.Color(1.0, 1.0, 1.0)
 
 # -----------------------------------------------------------
 # GLOBAL VARIABLES )))))))))))))))))))))))))))))))))))))) END
@@ -712,59 +715,6 @@ def lib_create_matNodeNet():
     # Create RS SubP mat node
     lib_create_RSMatForSubP(mat, [0,10])
 
-# -----------------------------------------------------------
-# PRESET NETWORKS & NODES ))))))))))))))))))))))))))))))) END
-# -----------------------------------------------------------
-
-#************************************************************
-
-def lib_set_groupNodeDefaults(object):
-    r"""
-        Set default node shape and color for group nodes.
-
-        Args:
-            object:
-                Houdini object; typically 'node'.
-
-        Returns:
-            None
-    """
-
-    #########################################
-
-    # Create standalone networks
-
-    ##################
-    # Set default shape to 'peanut'.
-    object.setUserData('nodeshape', 'peanut')
-    # Set default color to default global group color.
-    object.setColor(group_color)
-
-#************************************************************
-
-def lib_set_deleteNodeDefaults(object):
-    r"""
-        Set default node shape and color for nodes that
-        employ deleting processes.
-
-        Args:
-            object:
-                Houdini object; typically 'node'.
-
-        Returns:
-            None
-    """
-
-    #########################################
-
-    # Create standalone networks
-
-    ##################
-    # Set default shape to 'star'.
-    object.setUserData('nodeshape', 'star')
-    # Set default color to default global group color.
-    object.setColor(delete_color)
-
 #************************************************************
 
 def lib_create_copMatNetForSbsar():
@@ -857,7 +807,88 @@ def lib_create_copMatNetForSbsar():
             # Set parameter value with layer name.
             textures[i].setParms({"tex0_layername": layers[i]})
 
+# -----------------------------------------------------------
+# PRESET NETWORKS & NODES ))))))))))))))))))))))))))))))) END
+# -----------------------------------------------------------
+
 #************************************************************
+
+def lib_set_groupNodeDefaults(object):
+    r"""
+        Set default node shape and color for group nodes.
+
+        Args:
+            object:
+                Houdini object; typically 'node'.
+
+        Returns:
+            None
+    """
+
+    #########################################
+
+    # Create standalone networks
+
+    ##################
+    # Set default shape to 'peanut'.
+    object.setUserData('nodeshape', 'peanut')
+    # Set default color to default global group color.
+    object.setColor(group_color)
+
+#************************************************************
+
+def lib_set_deleteNodeDefaults(object):
+    r"""
+        Set default node shape and color for nodes that
+        employ deleting processes.
+
+        Args:
+            object:
+                Houdini object; typically 'node'.
+
+        Returns:
+            None
+    """
+
+    #########################################
+
+    # Create standalone networks
+
+    ##################
+    # Set default shape to 'star'.
+    object.setUserData('nodeshape', 'star')
+    # Set default color to default global group color.
+    object.setColor(delete_color)
+
+#************************************************************
+
+def lib_set_stickyNotesNetBoxDefaults():
+    r"""
+        Set default colors for sticky notes and network boxes.
+
+        Args:
+            None
+
+        Returns:
+            None
+    """
+
+    ##################
+    # Set custom default colors for Houdini Sticky Notes and Network Boxes
+    # Sticky Notes set to white
+    hou.setDefaultColor(hou.colorItemType.StickyNote, color_white)
+    # Sticky Notes Text default retained as black; uncomment to customize
+    # hou.setDefaultColor(hou.colorItemType.StickyNoteText, hou.Color(0.0, 0.0, 0.0))
+
+    ##################
+    # Network Boxes set to black
+    hou.setDefaultColor(hou.colorItemType.NetworkBox, color_black)
+
+#************************************************************
+
+# -----------------------------------------------------------
+# CREATE NODES ))}}}})))))))))))))))))))))))))))))))))) START
+# -----------------------------------------------------------
 
 def lib_create_RSMatForSubP(network, pos):
     r"""
@@ -955,9 +986,7 @@ def lib_create_RSMatForSubP(network, pos):
     # Organize child nodes layout
     rsMat_SubP.layoutChildren()
 
-# -----------------------------------------------------------
-# CREATE NODES ))}}}})))))))))))))))))))))))))))))))))) START
-# -----------------------------------------------------------
+#************************************************************
 
 def lib_create_matNode(network, name, color, pos):
     r"""

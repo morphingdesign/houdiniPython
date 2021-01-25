@@ -1,7 +1,7 @@
 # -----------------------------------------------------------
 # 123.py
-# v.2.0
-# Updated: 20201207
+# v.2.1
+# Updated: 20210124
 # Houdini version: 18.0.499
 # -----------------------------------------------------------
 
@@ -50,6 +50,9 @@ def main():
 
     # Configure playbar options
     uiUtils.lib_config_playbar()
+
+    # Set default colors for sticky notes & network boxes
+    utils.lib_set_stickyNotesNetBoxDefaults()
 
 
 if __name__ == '__main__':
