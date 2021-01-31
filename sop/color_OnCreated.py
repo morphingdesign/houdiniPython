@@ -34,21 +34,12 @@ customFolder.addParmTemplate(hou.FloatParmTemplate("active_color", "Active Color
 # Add parm template object to node's UI.
 tempGroup.append(customFolder)
 node.setParmTemplateGroup(tempGroup)
-# Collect references to node's default color params.
-origr = node.parm('colorr')
-origg = node.parm('colorg')
-origb = node.parm('colorb')
-# Collect references to new params.
-newr = node.parm('active_colorx')
-newg = node.parm('active_colory')
-newb = node.parm('active_colorz')
-# Channel reference original node's color params to the
-# new params. These values will change when the default
-# color values are updated by user and will in turn prompt
-# the script callback to change the node's color to match.
-newr.set(origr)
-newg.set(origg)
-newb.set(origb)
+
+# Set channel references to node's color params in new
+# params so that script callback activates upon change.
+node.parm('active_colorx').setExpression('ch("./colorr")')
+node.parm('active_colory').setExpression('ch("./colorg")')
+node.parm('active_colorz').setExpression('ch("./colorb")')
 # -----------------------------------------------------------
 # CUSTOMIZATIONS )))))))))))))))))))))))))))))))))}}))))) END
 # -----------------------------------------------------------
