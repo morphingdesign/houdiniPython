@@ -13,9 +13,10 @@ Start-up file runs on Houdini load of a new session.
 # GLOBAL VARIABLES )))))))))))))))))))))))))))))))))))) START
 # -----------------------------------------------------------
 
-# IMPORTANT: Reset 'USERNAME' with path to user-defined path
-# of scripts location.
-library_path = r'C:\Users\USERNAME\Documents\houdini18.0\scripts'
+# IMPORTANT: Reset <USERNAME> with path to user-defined path
+# of scripts location. Reset <HOUDINI_VERSION> with
+# current Houdini version.
+library_path = r'C:\Users\<USERNAME>\Documents\<HOUDINI_VERSION>\scripts'
 
 # -----------------------------------------------------------
 # GLOBAL VARIABLES )))))))))))))))))))))))))))))))))))))) END
