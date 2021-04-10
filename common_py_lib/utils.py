@@ -890,7 +890,7 @@ def lib_set_stickyNotesNetBoxDefaults():
 # CREATE NODES ))}}}})))))))))))))))))))))))))))))))))) START
 # -----------------------------------------------------------
 
-def lib_create_RSMatForSubP(network, pos):
+def lib_create_RSMatForSubP(network, pos=None):
     r"""
     Create Redshift material with embedded structure for reading
     textures, in alignment with Substance Painter output or an
@@ -908,6 +908,10 @@ def lib_create_RSMatForSubP(network, pos):
 
     # Local variable for node color
     mat_color = rndr_color
+
+    # test
+    if pos is None:
+        pos = [0, 0]
 
     # Generate node
     # Custom function returns node created so reference to variable persists
@@ -934,16 +938,21 @@ def lib_create_RSMatForSubP(network, pos):
     # Metallic texture
     subP_mat_folder.addParmTemplate(hou.StringParmTemplate("tex_metallic", "Metallic", 1, string_type=hou.stringParmType.FileReference, file_type=hou.fileType.Image))
     # Normal texture
-    subP_mat_folder.addParmTemplate( hou.StringParmTemplate("tex_normal", "Normal", 1, string_type=hou.stringParmType.FileReference, file_type=hou.fileType.Image))
+    subP_mat_folder.addParmTemplate(hou.StringParmTemplate("tex_normal", "Normal", 1, string_type=hou.stringParmType.FileReference, file_type=hou.fileType.Image))
+    # Height texture
+    subP_mat_folder.addParmTemplate(hou.StringParmTemplate("tex_height", "Height", 1, string_type=hou.stringParmType.FileReference, file_type=hou.fileType.Image))
+    # Emission texture
+    subP_mat_folder.addParmTemplate(hou.StringParmTemplate("tex_emission", "Emission", 1, string_type=hou.stringParmType.FileReference, file_type=hou.fileType.Image))
 
     # Add folder to group and group to RS SubP mat node
     group.append(subP_mat_folder)
     rsMat_SubP.setParmTemplateGroup(group)
 
     ##################
-    # Access inside RS material by collecting material node matching pattern exactly
+    # Access inside RS material nodes by collecting material node matching pattern exactly
     # The glob() function outputs a tuple, so selection will be the 1st and only node.
     subP_mat = rsMat_SubP.glob("Material1", ignore_case=False)[0]
+    subP_matOut = rsMat_SubP.glob("redshift_material1", ignore_case=False)[0]
 
     ##################
     # Create texture nodes to link into material
@@ -952,6 +961,9 @@ def lib_create_RSMatForSubP(network, pos):
     subP_mat_tex_metal = rsMat_SubP.createNode("redshift::TextureSampler", node_name="Texture_Metallic")
     subP_mat_tex_normal = rsMat_SubP.createNode("redshift::TextureSampler", node_name="Texture_Normal")
     subP_mat_bumpMap = rsMat_SubP.createNode("redshift::BumpMap")
+    subP_mat_tex_height = rsMat_SubP.createNode("redshift::TextureSampler", node_name="Texture_Height")
+    subP_mat_displaceMap = rsMat_SubP.createNode("redshift::Displacement")
+    subP_mat_tex_emission = rsMat_SubP.createNode("redshift::TextureSampler", node_name="Texture_Emission")
 
     # Link texture/image file inputs at Mat Builder level to corresponding texture samplers
     # Note the backslash to preserve the interior quotation marks for the path
@@ -959,13 +971,18 @@ def lib_create_RSMatForSubP(network, pos):
     subP_mat_tex_rough.setParms({"tex0": "`chs(\"../tex_roughness\")`"})    # Link to roughness
     subP_mat_tex_metal.setParms({"tex0": "`chs(\"../tex_metallic\")`"})     # Link to metallic
     subP_mat_tex_normal.setParms({"tex0": "`chs(\"../tex_normal\")`"})      # Link to normal
+    subP_mat_tex_height.setParms({"tex0": "`chs(\"../tex_height\")`"})      # Link to height
+    subP_mat_tex_emission.setParms({"tex0": "`chs(\"../tex_emission\")`"})  # Link to emission
 
     # Link node outputs to inputs
-    subP_mat.setInput(0, subP_mat_tex_diffuse, 0)   # To diffuse_color
-    subP_mat.setInput(7, subP_mat_tex_rough, 0)     # To refl_roughness
-    subP_mat.setInput(14, subP_mat_tex_metal, 0)    # To refl_metalness
-    subP_mat_bumpMap.setInput(0, subP_mat_tex_normal, 0)  # From normal to bumpMap
-    subP_mat.setInput(49, subP_mat_bumpMap, 0)      # To bump_input
+    subP_mat.setInput(0, subP_mat_tex_diffuse, 0)               # To diffuse_color
+    subP_mat.setInput(7, subP_mat_tex_rough, 0)                 # To refl_roughness
+    subP_mat.setInput(14, subP_mat_tex_metal, 0)                # To refl_metalness
+    subP_mat_bumpMap.setInput(0, subP_mat_tex_normal, 0)        # From normal to bumpMap
+    subP_mat.setInput(52, subP_mat_bumpMap, 0)                  # To bump_input
+    subP_mat_displaceMap.setInput(0, subP_mat_tex_height, 0)    # From height to displaceMap
+    subP_matOut.setInput(1, subP_mat_displaceMap, 0)            # To displacement_input in mat out node
+    subP_mat.setInput(51, subP_mat_tex_emission, 0)             # To emission_color
 
     ##################
 
@@ -980,6 +997,12 @@ def lib_create_RSMatForSubP(network, pos):
     # By default, this is set to IOR
     subP_mat.setParms({"refl_fresnel_mode": "2"})
     # Normal texture params are set correctly by default to tangent space normal and height scale of 1.
+
+    # Set normal texture parameter to enable Gamma Override
+    subP_mat_tex_normal.setParms({"tex0_gammaoverride": "1"})
+    # Set bump map node parameter to set Input Map Type to Tangent-Space Normal.
+    # By default, this is set to Height Field
+    subP_mat_bumpMap.setParms({"inputType": "1"})
 
     ##################
 
@@ -1006,7 +1029,7 @@ def lib_create_matNode(network, name, color, pos):
         Created network node.
     """
 
-    name = network.createNode("redshift_vopnet", node_name=name)
+    name = network.createNode("redshift_vopnet", node_name=name, force_valid_node_name=True)
     # Set color using hou color system (RGB)
     name.setColor(color)
     # Position nodes using (x, y) values
