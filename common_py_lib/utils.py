@@ -1,7 +1,7 @@
 # -----------------------------------------------------------
 # utils.py
-# v.1.5
-# Updated: 20210410
+# v.1.6
+# Updated: 20210513
 # -----------------------------------------------------------
 
 """
@@ -689,6 +689,20 @@ def lib_create_matNodeNet():
     # Set parameters and network connections
     # Mat node set to 0, glass
     glass_mat.setParms({"preset":"0"})
+    glass_mat.setParms({"diffuse_weight": "0"})
+    # Set to GGX (option 2)
+    glass_mat.setParms({"refl_brdf": "1"})
+    # Set to Metal (option 3)
+    glass_mat.setParms({"refl_fresnel_mode": "2"})
+    # Set metal color to dark gray; note that parameter is not accessible via tuple,
+    # but rather individual float fields as follows:
+    glass_mat.setParms({"refl_reflectivityr": "0.0125"})
+    glass_mat.setParms({"refl_reflectivityg": "0.0125"})
+    glass_mat.setParms({"refl_reflectivityb": "0.0125"})
+    # Enable Refraction Weight to '1'.
+    glass_mat.setParms({"refr_weight": "1"})
+    # Toggle to On
+    glass_mat.setParms({"refr_thin_walled": "1"})
 
     # Assign existing redshift material out node to variable
     glass_out = rsMat_Glass.node('redshift_material1')
