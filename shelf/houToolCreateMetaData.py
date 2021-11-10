@@ -19,8 +19,8 @@ import hou
 # LOCAL VARIABLES ))))))))))))))))))))))))))))))))))))) START
 # -----------------------------------------------------------
 
-hipname = hou.expandString("$HIPNAME")
-hipfile = hou.expandString("$HIPFILE")
+hipname = hou.text.expandString("$HIPNAME")
+hipfile = hou.text.expandString("$HIPFILE")
 nodes = hou.selectedNodes()
 
 # -----------------------------------------------------------
