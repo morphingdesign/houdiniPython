@@ -1,7 +1,7 @@
 # -----------------------------------------------------------
 # houToolCreateMetaData.py
 # v.1.0
-# Updated: 20211109
+# Updated: 20211111
 # ----------------------------------------------------------
 
 """
@@ -28,6 +28,18 @@ nodes = hou.selectedNodes()
 # -----------------------------------------------------------
 
 # -----------------------------------------------------------
+# SETUP TAB & PARM )))))))))))))))))))))))))))))))))))) START
+# -----------------------------------------------------------
+
+folder = hou.FolderParmTemplate("folder", "Metadata")
+folder.setFolderType(hou.folderType.Tabs)
+folder.addParmTemplate(hou.StringParmTemplate("originhip", "Origin", 1))
+
+# -----------------------------------------------------------
+# SETUP TAB & PARM )))))))))))))))))))))))))))))))))))))) END
+# -----------------------------------------------------------
+
+# -----------------------------------------------------------
 # SET ATTRIBUTE ))))))))))))))))))))))))))))))))))))))) START
 # -----------------------------------------------------------
 
@@ -35,6 +47,13 @@ for node in nodes:
     # NODE CREATOR STATE ****************************
     node.setCreatorState(hipname)
     node.setBuiltExplicitly(False)
+
+    # PARTIALLY VISIBLE METADATA PARAMETER **********
+    group = node.parmTemplateGroup()
+    group.append(folder)
+    # Add parm to node's parm group.
+    node.setParmTemplateGroup(group)
+    node.parm("originhip").set(hipname)
 
 # -----------------------------------------------------------
 # SET ATTRIBUTE ))))))))))))))))))))))))))))))))))))))))) END
