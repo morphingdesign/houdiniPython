@@ -50,12 +50,23 @@ allnodes = all.allSubChildren()
 # GENERATE WORK ITEMS ))))))))))))))))))))))))))))))))) START
 # -----------------------------------------------------------
 
+# Enumerate list to doc index.
 for k, node in enumerate(allnodes):
     # Generate work item. Note ref above that item_holder is
     # recognized by PDG.
     new_item = item_holder.addWorkItem(index = k)
-    # Add string attributes for each node/work item.
+    # Create attributes for each work item.
     new_item.setStringAttrib("name", node.name())
+    # Extract node type and split string to isolate network
+    # and node type.
+    rawType = str(node.type())
+    typeParts = rawType.split("for ")
+    type = typeParts[1]
+    type = type.rstrip(">") # Clip hanging bracket.
+    # Encapsulate resulting string as type, to be later split
+    # into separate attributes: network and type, with Attr
+    # Create TOP.
+    new_item.setStringAttrib("type", type)
     new_item.setStringAttrib("path", node.path())
 
 # -----------------------------------------------------------
