@@ -1,7 +1,7 @@
 # -----------------------------------------------------------
 # houToolCreateMetaData.py
 # v.1.0
-# Updated: 20211111
+# Updated: 20211112
 # ----------------------------------------------------------
 
 """
@@ -31,9 +31,10 @@ nodes = hou.selectedNodes()
 # SETUP TAB & PARM )))))))))))))))))))))))))))))))))))) START
 # -----------------------------------------------------------
 
-folder = hou.FolderParmTemplate("folder", "Metadata")
+folder = hou.FolderParmTemplate("folder", "Metadata",
+                                tab_conditionals={hou.parmCondType.DisableWhen: '{ origin != /"/" }'})
 folder.setFolderType(hou.folderType.Tabs)
-folder.addParmTemplate(hou.StringParmTemplate("originhip", "Origin", 1))
+folder.addParmTemplate(hou.StringParmTemplate("origin", "Origin", 1))
 
 # -----------------------------------------------------------
 # SETUP TAB & PARM )))))))))))))))))))))))))))))))))))))) END
@@ -49,11 +50,15 @@ for node in nodes:
     node.setBuiltExplicitly(False)
 
     # PARTIALLY VISIBLE METADATA PARAMETER **********
-    group = node.parmTemplateGroup()
-    group.append(folder)
-    # Add parm to node's parm group.
-    node.setParmTemplateGroup(group)
-    node.parm("originhip").set(hipname)
+    # Check if parm already exists.
+    if (node.parm("origin")):
+        print("Parameter already created for %s." % node.name())
+    else:
+        group = node.parmTemplateGroup()
+        group.append(folder)
+        # Add parm to node's parm group.
+        node.setParmTemplateGroup(group)
+        node.parm("origin").set(hipname)
 
 # -----------------------------------------------------------
 # SET ATTRIBUTE ))))))))))))))))))))))))))))))))))))))))) END
