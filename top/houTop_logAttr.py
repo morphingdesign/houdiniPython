@@ -48,6 +48,11 @@ data_net = (strData(work_item, "network"))
 data_type = (strData(work_item, "type"))
 data_path = (strData(work_item, "path"))
 data_index = (intData(work_item, "index"))
+data_note = (strData(work_item, "note"))
+if data_note == "":
+    data_note = "N/A"
+else:
+    data_note = data_note
 
 # -----------------------------------------------------------
 # LOCAL VARIABLES ))))))))))))))))))))))))))))))))))))))) END
@@ -62,6 +67,7 @@ print("****************************")
 print("%d: %s" % (data_index, data_name))
 print("Network: %s" % data_net)
 print("Type: %s" % data_type)
+print("Notes: %s" % data_note)
 print("Path: %s" % data_path)
 
 # Split data path into levels for hierarchy organization.

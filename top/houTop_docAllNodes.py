@@ -68,6 +68,8 @@ for k, node in enumerate(allnodes):
     # Create TOP.
     new_item.setStringAttrib("type", type)
     new_item.setStringAttrib("path", node.path())
+    # Store node's comments, if available.
+    new_item.setStringAttrib("note", node.comment())
 
 # -----------------------------------------------------------
 # GENERATE WORK ITEMS ))))))))))))))))))))))))))))))))))) END
