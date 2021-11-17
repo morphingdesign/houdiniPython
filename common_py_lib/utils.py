@@ -1,7 +1,9 @@
 # -----------------------------------------------------------
 # utils.py
-# v.1.6
-# Updated: 20210513
+# v.1.7
+# Updated: 20211117
+# Houdini version: 18.5.563, Python 3
+# Redshift version: 3.0.46
 # -----------------------------------------------------------
 
 """
@@ -562,7 +564,7 @@ def lib_create_redshiftNodeNet():
     # Set render camera to main camera
     redRop.setParms({"RS_renderCamera": "/obj/cam_1080"})
     # Set to No Gamma
-    redRop.setParms({"RS_gammaFileMode": "noGamma"})
+    redRop.setParms({"RS_gammaPreview": "1"})
     # Set samples
     redRop.setParms({"UnifiedMinSamples": "16"})
     redRop.setParms({"UnifiedMaxSamples": "128"})
@@ -1012,8 +1014,6 @@ def lib_create_RSMatForSubP(network, pos=None):
     subP_mat.setParms({"refl_fresnel_mode": "2"})
     # Normal texture params are set correctly by default to tangent space normal and height scale of 1.
 
-    # Set normal texture parameter to enable Gamma Override
-    subP_mat_tex_normal.setParms({"tex0_gammaoverride": "1"})
     # Set bump map node parameter to set Input Map Type to Tangent-Space Normal.
     # By default, this is set to Height Field
     subP_mat_bumpMap.setParms({"inputType": "1"})
@@ -1131,3 +1131,10 @@ def lib_set_camViewComment(object):
 # -----------------------------------------------------------
 # CUSTOM PARAMETERS ))))))))))))))))))))))))))))))))))))) END
 # -----------------------------------------------------------
+
+
+# SCENE FILE EVENT CALLBACK
+
+def scene_was_loaded(event_type):
+    if event_type == hou.hipFileEventType.AfterLoad:
+        print("The user loaded", hou.hipFile.path())
