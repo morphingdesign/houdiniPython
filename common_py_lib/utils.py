@@ -1131,10 +1131,3 @@ def lib_set_camViewComment(object):
 # -----------------------------------------------------------
 # CUSTOM PARAMETERS ))))))))))))))))))))))))))))))))))))) END
 # -----------------------------------------------------------
-
-
-# SCENE FILE EVENT CALLBACK
-
-def scene_was_loaded(event_type):
-    if event_type == hou.hipFileEventType.AfterLoad:
-        print("The user loaded", hou.hipFile.path())
