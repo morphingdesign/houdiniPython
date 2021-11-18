@@ -1131,3 +1131,21 @@ def lib_set_camViewComment(object):
 # -----------------------------------------------------------
 # CUSTOM PARAMETERS ))))))))))))))))))))))))))))))))))))) END
 # -----------------------------------------------------------
+
+
+# -----------------------------------------------------------
+# SCENE FILE EVENT CALLBACK ))))))))))))))))))))))))))) START
+# -----------------------------------------------------------
+
+# Function checks for event and outputs accordingly.
+def scene_was_saved(event_type):
+    if event_type == hou.hipFileEventType.BeforeSave:
+        # Display via Hou UI rather than console; preferably.
+        if hou.isUIAvailable():
+            hou.ui.displayMessage("The user saved to %s"  % hou.hipFile.path())
+        else:
+            print("The user saved to %s" % hou.hipFile.path())
+
+# -----------------------------------------------------------
+# SCENE FILE EVENT CALLBACK ))))))))))))))))))))))))))))) END
+# -----------------------------------------------------------
