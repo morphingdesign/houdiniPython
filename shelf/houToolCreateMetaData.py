@@ -1,13 +1,13 @@
 # -----------------------------------------------------------
 # houToolCreateMetaData.py
 # v.1.0
-# Updated: 20211112
+# Updated: 20211118
 # ----------------------------------------------------------
 
 """
 Shelf Tool Name: Set Creator
 Custom shelf tool to store creation metadata to selected node/s
-in its built-in creatorState.
+in its built-in creatorState and user data.
 """
 
 import hou
@@ -62,4 +62,19 @@ for node in nodes:
 
 # -----------------------------------------------------------
 # SET ATTRIBUTE ))))))))))))))))))))))))))))))))))))))))) END
+# -----------------------------------------------------------
+
+# -----------------------------------------------------------
+# PER NODE USER DATA )))))))))))))))))))))))))))))))))) START
+# -----------------------------------------------------------
+
+# Reference: https://www.sidefx.com/docs/houdini/hom/nodeuserdata.html
+
+for node in nodes:
+    # Prefix of "nodeinfo_" allows for key/value dictionary entry
+    # to be viewable in node's info dialog box.
+    node.setUserData("nodeinfo_Origin", hipname)
+
+# -----------------------------------------------------------
+# PER NODE USER DATA  ))))))))))))))))))))))))))))))))))) END
 # -----------------------------------------------------------
