@@ -63,7 +63,7 @@ class TemplateWindow(QtWidgets.QWidget):
 # -----------------------------------------------------------
 
 # -----------------------------------------------------------
-# COMBO BOX & BUTTON )))))))))))))))))))))))))))))))))) START
+# NODE CREATION UI )))))))))))))))))))))))))))))))))))) START
 # -----------------------------------------------------------
 
 class NewColorNode(QtWidgets.QWidget):
@@ -78,23 +78,28 @@ class NewColorNode(QtWidgets.QWidget):
         self.setParent(hou.ui.mainQtWindow(), QtCore.Qt.Window)
         self.setWindowTitle('UI Tool 01')
 
+        # Line edit user-entered text.
+        self.le = self.ui.text_nodeName
+        self.le.editingFinished.connect(self.setName)
+
         # Combo box with options.
-        cb = self.ui.btn_comboBox
-        cb.addItems(["Red", "Green", "Blue"])
+        self.cb = self.ui.btn_comboBox
+        self.cb.addItems(["Red", "Green", "Blue"])
 
         # Button to enact action. Pass in current index from combo box
         # into create_node function.
-        self.ui.btn_createNode.clicked.connect(lambda: self.create_node(cb.currentIndex()))
+        self.ui.btn_createNode.clicked.connect(lambda: self.create_node(self.cb.currentIndex()))
 
     # Create new node of specified color.
     def create_node(self, index):
         newNode = hou.node('/obj').createNode('null', "Node")
         specColor = colors[index]
         newNode.setColor(specColor)
-        print(specColor)
+        # Unique name arg enabled to prevent same name errors.
+        newNode.setName(self.le.text(), unique_name=True)
+        #print(specColor)
 
-        # Debug log combo box options.
-
+    # Debug log combo box options.
     def selectionChange(self, i):
         print("Items in the list are:")
         for count in range(self.ui.btn_comboBox.count()):
@@ -102,6 +107,10 @@ class NewColorNode(QtWidgets.QWidget):
         print("Current index %d selection changed %s." % (i, self.ui.btn_comboBox.currentText()))
         return i
 
+    # Method to eval user-entered text field.
+    def setName(self):
+        print(self.le.text())
+
 # -----------------------------------------------------------
-# COMBO BOX & BUTTON )))))))))))))))))))))))))))))))))))) END
+# NODE CREATION UI )))))))))))))))))))))))))))))))))))))) END
 # -----------------------------------------------------------

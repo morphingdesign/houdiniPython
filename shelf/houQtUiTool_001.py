@@ -5,7 +5,7 @@
 # ----------------------------------------------------------
 
 """
-Custom shelf tool using a Qt dialog to evaluate combo box options.
+Custom shelf tool using a Qt dialog to generate custom node.
 """
 
 from PySide2 import QtGui, QtUiTools, QtWidgets, QtCore
