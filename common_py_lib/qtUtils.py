@@ -9,6 +9,26 @@ Custom Houdini UI utilities for use with startup and quick node
 creation specifically designed around Qt.
 """
 
+# -----------------------------------------------------------
+# HOT RELOADING IN HOU )))))))))))))))))))))))))))))))) START
+# -----------------------------------------------------------
+
+# Include the following to allow for hot reload in Houdini Python console.
+# In console simply type the following to load the module:
+#       Syntax                  Example
+#       import <module>         from common_py_lib import qtUtils
+# Then to reload any edits made to the module:
+#       Syntax                  Example
+#       reload(<module>)        reload(qtUtils)
+
+import importlib
+
+__builtins__['reload'] = importlib.reload
+
+# -----------------------------------------------------------
+# HOT RELOADING IN HOU )))))))))))))))))))))))))))))))))) END
+# -----------------------------------------------------------
+
 import hou
 from PySide2 import QtGui, QtUiTools, QtWidgets, QtCore
 from common_py_lib import hpUtils
