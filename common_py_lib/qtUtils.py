@@ -1,7 +1,8 @@
 # -----------------------------------------------------------
 # qtUtils.py
 # v.1.0
-# Updated: 20211124
+# Updated: 20211127
+# Houdini version: 18.5.563, Python 3
 # -----------------------------------------------------------
 
 """
@@ -29,18 +30,28 @@ __builtins__['reload'] = importlib.reload
 # HOT RELOADING IN HOU )))))))))))))))))))))))))))))))))) END
 # -----------------------------------------------------------
 
+
+# -----------------------------------------------------------
+# IMPORT LIBRARIES )))))))))))))))))))))))))))))))))))) START
+# -----------------------------------------------------------
+
 import hou
 import toolutils
 from PySide2 import QtGui, QtUiTools, QtWidgets, QtCore
 from common_py_lib import hpUtils
 
-# Specify local path for Qt .ui file.
-localDir = hpUtils.AssetDir()
-qtDirPath = localDir.getQtDir()
+# -----------------------------------------------------------
+# IMPORT LIBRARIES )))))))))))))))))))))))))))))))))))))) END
+# -----------------------------------------------------------
+
 
 # -----------------------------------------------------------
 # GLOBAL VARIABLES )))))))))))))))))))))))))))))))))))) START
 # -----------------------------------------------------------
+
+# Specify local path for Qt .ui file.
+localDir = hpUtils.AssetDir()
+qtDirPath = localDir.getQtDir()
 
 # List of colors formatted for Houdini content.
 red_color = hou.Color(1.0, 0.0, 0.0)
