@@ -30,6 +30,7 @@ __builtins__['reload'] = importlib.reload
 # -----------------------------------------------------------
 
 import hou
+import toolutils
 from PySide2 import QtGui, QtUiTools, QtWidgets, QtCore
 from common_py_lib import hpUtils
 
@@ -117,6 +118,8 @@ class NewColorNode(QtWidgets.QWidget):
         newNode.setColor(specColor)
         # Unique name arg enabled to prevent same name errors.
         newNode.setName(self.le.text(), unique_name=True)
+        # Verify node is placed in new position each time to prevent overlaps.
+        toolutils.moveNodesToGoodPosition([newNode])
         #print(specColor)
 
     # Debug log combo box options.
